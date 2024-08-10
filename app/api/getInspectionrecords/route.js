@@ -5,3 +5,7 @@ export async function POST(req){
     
     return NextResponse.json({records: body.id}, {status: 200})
 }
+
+export async function GET(){
+    return NextResponse.json({records: "Server is working :)"}, {status: 200})
+}
