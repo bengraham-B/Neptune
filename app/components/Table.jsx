@@ -1,12 +1,29 @@
-import React from 'react'
+"use client"
+import React, { useState, useEffect } from 'react'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 
 
+
 export default function Table() {
+    const [records, setRecords] = useState([])
+
+    //^ This gets the inspections records from REDUX
     const count = useSelector((state) => state.counter.value)
-    const dispatch = useDispatch()
+    const records_redux = useSelector((state) => state.inspection.value)
+
+    console.log("Table Redux", records_redux)
+    
+    useEffect(() => {
+        setRecords(records_redux)
+        console.log("Table Redux", records_redux)
+
+    }, [records_redux])
+    
+
+
+    // const dispatch = useDispatch()
   return (
     <main>
         {count}
@@ -20,6 +37,15 @@ export default function Table() {
             </thead>
 
             <tbody >
+
+                {records && records.map((T) => (
+                    <tr>
+                        <td>{T.stockCode}</td>
+                        <td>{T.code}</td>
+                    </tr>
+                ))}
+
+                
                 <tr>
                     <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
                     <td>Malcolm Lockyer</td>

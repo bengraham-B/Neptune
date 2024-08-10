@@ -3,7 +3,9 @@ import React from 'react'
 import Link from 'next/link'
 
 // Redux
+
 import { useSelector, useDispatch } from 'react-redux'
+import { LOGIN_REDUX, LOGOUT_REDUX } from '../GlobalRedux/Auth/authASlice'
 
 // Material Tailwind
 import {
@@ -16,7 +18,8 @@ import {
    
 
 export default function Header() {
-    const auth = useSelector((state) => state.counter.value)
+    const dispatch = useDispatch()
+    const auth = useSelector((state) => state.auth.value)
 
   return (
     <main className='flex bg-blue-700 text-white py-4 px-2'>
@@ -31,9 +34,9 @@ export default function Header() {
                     <Button>{auth}</Button>
                 </MenuHandler>
                 <MenuList>
-                    <MenuItem>Menu Item 1</MenuItem>
+                    <MenuItem onClick={() => dispatch(LOGIN_REDUX())}>Menu Item 1</MenuItem>
                     <MenuItem>Menu Item 2</MenuItem>
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem onClick={() => dispatch(LOGOUT_REDUX())}>Logout</MenuItem>
                 </MenuList>
             </Menu>
         </section>
