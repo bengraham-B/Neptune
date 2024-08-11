@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
+import InspectionRecord_Class from "@/app/classes/InspectionClass";
+import mockInspectionRecords from '../data/inspectionRecords.json'
 
-const inspectionRecordsDev = [
-    {code: 'ISPC2024/001', stockCode: '5095-RS-8078'},
-    {code: 'ISPC2024/002', stockCode: '5695-RS-3978'},
-    {code: 'ISPC2024/003', stockCode: '5010-RS-1908'},
-]
+
+const arrayOfInspectionRecords = []
+
+for (let i = 0; i++; i <mockInspectionRecords.length){
+    const inspectionRecord = new InspectionRecord_Class(mockInspectionRecords[i].id)
+    arrayOfInspectionRecords.push(inspectionRecord)
+}
+
+console.log(arrayOfInspectionRecords)
 
 export async function POST(req){
     const body = await req.json()

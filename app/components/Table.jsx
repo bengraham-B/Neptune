@@ -27,41 +27,27 @@ export default function Table() {
   return (
     <main>
         {count}
-        <table className="table-fixed text-black border border-slate-500">
-            <thead className=''>
+        <table className="table-fixed text-black border border-slate-500 space-x-3'">
+            <thead className="space-x-3'">
                 <tr className='border border-black'>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Year</th>
+                <th>code</th>
+                <th>GRV</th>
+                <th>Date Inspected</th>
+                <th>Status</th>
+                <th>Inspection Number</th>
+                <th>Project</th>
                 </tr>
             </thead>
 
-            <tbody >
+            <tbody className='space-x-3'>
 
                 {records && records.map((T) => (
-                    <tr>
+                    <tr key={T.id}>
                         <td>{T.stockCode}</td>
                         <td>{T.code}</td>
                     </tr>
                 ))}
 
-                
-                <tr>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td>Malcolm Lockyer</td>
-                    <td>1961</td>
-                </tr>
-
-                <tr>
-                    <td>Witchy Woman</td>
-                    <td>The Eagles</td>
-                    <td>1972</td>
-                </tr>
-                <tr>
-                    <td>Shining Star</td>
-                    <td>Earth, Wind, and Fire</td>
-                    <td>1975</td>
-                </tr>
             </tbody>
         </table>
     </main>
