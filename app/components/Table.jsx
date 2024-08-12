@@ -26,9 +26,9 @@ export default function Table() {
     // const dispatch = useDispatch()
   return (
     <main>
-        {count}
+        {/* {count} */}
         <table className="table-fixed text-black border border-slate-500 space-x-3'">
-            <thead className="space-x-3'">
+            <thead className="space-x-3 px-12'">
                 <tr className='border border-black'>
                 <th>code</th>
                 <th>GRV</th>

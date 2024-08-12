@@ -1,5 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+
+// Components
 import Table from './components/Table'
 
 // Redux
@@ -37,17 +40,20 @@ export default function page() {
 
     return (
         <main>
-			<section></section>
+			<section className='flex justify-center my-4'>
+                <Link href={"/pages/AddRecord/"} className='py-2 px-4 rounded-md font-2xl bg-blue-600 text-white'>Add Inspection Record</Link>
+            </section>
 			
 			<section className='flex p-1'>
 				<Table/>
 			</section>
 
-            <section>
+            {/* This section is to test redux */}
+            {/* <section>
                 <div>{count}</div>
                 <button className=" btn" onClick={() => dispatch(increment())}>Increment</button>
                 <button className=" btn" onClick={() => dispatch(decrement())}>Increment</button>
-            </section>
+            </section> */}
         </main>
     )
 }

@@ -19,5 +19,5 @@ export async function POST(req){
 }
 
 export async function GET(){
-    return NextResponse.json({records: inspectionRecordsDev}, {status: 200})
+    return NextResponse.json({records: mockInspectionRecords}, {status: 200})
 }
