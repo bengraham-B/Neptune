@@ -1,7 +1,9 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
 
 export default function page() {
+	const [code, setCode] = useState()
     return (
         <main className='flex flex-col space-y-4'>
 			<section className='flex justify-center py-4 text-3xl text-black'>Add Inspection Record</section>
@@ -15,7 +17,7 @@ export default function page() {
 							<label class="block text-black text-lg mb-1" for="code">
 								Code
 							</label>
-							<input id="code" placeholder="Code" class="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+							<input id="code" placeholder="Code" onChange={(e) => setCode(e.target.value)} class="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
 						</div>
 
 						<div>

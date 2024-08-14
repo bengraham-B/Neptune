@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 // Components
-import Table from './components/Table'
+// import Table from './components/Table'
+import Table2 from './components/Table2'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -45,7 +46,7 @@ export default function page() {
             </section>
 			
 			<section className='flex p-1'>
-				<Table/>
+				<Table2/>
 			</section>
 
             {/* This section is to test redux */}
