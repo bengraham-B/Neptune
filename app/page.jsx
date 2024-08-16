@@ -4,7 +4,8 @@ import Link from 'next/link'
 
 // Components
 // import Table from './components/Table'
-import Table2 from './components/Table2'
+// import Table2 from './components/Table2'
+// import Table3 from './components/Table3'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -46,7 +47,7 @@ export default function page() {
             </section>
 			
 			<section className='flex p-1'>
-				<Table2/>
+				{/* <Table3/> */}
 			</section>
 
             {/* This section is to test redux */}

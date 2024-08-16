@@ -8,8 +8,10 @@ export async function POST(req) {
             code, GRV, date_inspected, project, part_number, serial_number, 
             production_job_number, department_company, syspro_code, manuf_items, 
             inspection_phase, total_qty, qty_accepted, qty_to_be_reworked, 
-            qty_rejected, qty_wip, defect_codes, remarks, purchase_order_number, fta
+            qty_rejected, qty_wip, defect_codes, remarks, purchase_order_number
         } = await req.json();
+
+        
 
         // SQL Insert Query
         const SQL = `
@@ -19,10 +21,10 @@ export async function POST(req) {
                 "department_company", "syspro_code", "manuf_items", 
                 "inspection_phase", "total_qty", "qty_accepted", 
                 "qty_to_be_reworked", "qty_rejected", "qty_wip", 
-                "defect_codes", "remarks", "purchase_order_number", "fta"
+                "defect_codes", "remarks", "purchase_order_number"
             ) VALUES (
                 $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 
-                $12, $13, $14, $15, $16, $17, $18, $19, $20, $21
+                $12, $13, $14, $15, $16, $17, $18, $19, $20
             );
         `;
 
@@ -33,7 +35,7 @@ export async function POST(req) {
             serial_number, production_job_number, department_company, 
             syspro_code, manuf_items, inspection_phase, total_qty, 
             qty_accepted, qty_to_be_reworked, qty_rejected, qty_wip, 
-            defect_codes, remarks, purchase_order_number, fta
+            defect_codes, remarks, purchase_order_number
         ];
 
         // Execute the query

@@ -38,16 +38,17 @@ export default function Table2() {
                         <tbody class="divide-y divide-gray-200">
                                 {records && records.map((T) => (
                                     <tr key={T.id}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{T.stockCode}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-800">{T.stockCode}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{T.code}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">gooo</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">gooo</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">gooo</td>
+                                        
+                                        {/* <td className="px-6 py-4 whitespace-nowrap text-end font-medium text-gray-800">gooo</td> */}
                                     </tr>
                                 ))}
                            
 
-                            {/* <tr>
+                            <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Jim Green</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">London No. 1 Lake Park</td>
@@ -63,7 +64,7 @@ export default function Table2() {
                             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                 <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
                             </td>
-                            </tr> */}
+                            </tr>
                         </tbody>
                         </table>
                     </div>
