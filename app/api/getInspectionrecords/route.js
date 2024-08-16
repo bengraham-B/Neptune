@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import pool from "@/app/database/database";
+
+
 import InspectionRecord_Class from "@/app/classes/InspectionClass";
 import mockInspectionRecords from '../data/inspectionRecords.json'
 
@@ -19,5 +22,14 @@ export async function POST(req){
 }
 
 export async function GET(){
-    return NextResponse.json({records: mockInspectionRecords}, {status: 200})
+    try {
+        const SQL = `SELECT * FROM inspection`
+        const query = await pool.query(SQL)
+        return NextResponse.json({records: query.rows}, {status: 400})
+
+        
+    } catch (error) {
+        return NextResponse.json({status: 400})
+    }
+    // return NextResponse.json({records: mockInspectionRecords}, {status: 200})
 }
