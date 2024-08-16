@@ -87,12 +87,12 @@ export default function page() {
 		const data = await response.json()
 
 		if (response.ok){
-			alert(200, data)
+			console.log(200, data)
 			
 		}
 
 		else {
-			alert(400, data)
+			console.log(400, data)
 		}
 	}
 

@@ -1,22 +1,44 @@
 import { NextResponse } from "next/server";
 import pool from "@/app/database/database";
 
+const getLatestInspectionCode = async () => {
+    try {
+        const SQL = `SELECT * FROM inspection ORDER BY inspection_code_digit DESC LIMIT 1`
+        const query =   await pool.query(SQL)
+        const inspectionDigit = query.rows[0].inspection_code_digit
+        return inspectionDigit
+    } catch (error) {
+        return "Error"
+    }
+}
+
 export async function POST(req) {
     try {
         // Parse JSON body from the request
         const {
-            code, GRV, date_inspected, project, part_number, serial_number, 
+            GRV, date_inspected, project, part_number, serial_number, 
             production_job_number, department_company, syspro_code, manuf_items, 
             inspection_phase, total_qty, qty_accepted, qty_to_be_reworked, 
             qty_rejected, qty_wip, defect_codes, remarks, purchase_order_number
         } = await req.json();
+        
+        const inspectionDigit = await getLatestInspectionCode()
+
+        if(inspectionDigit === "Error"){
+            return NextResponse.json({ status: 400, msg: "Could retrive Latest Inspection Code Digit" });
+        }
+
+        let d = new Date()
+        const currentYear = d.getFullYear()
+        const inspectionNumber = `I${currentYear-2000}/${inspectionDigit}`
+
 
         
 
         // SQL Insert Query
         const SQL = `
             INSERT INTO inspection (
-                "status", "code", "grv", "date_inspected", "project", 
+                "status", "inspection_code_year", "inspection_code", "grv", "date_inspected", "project", 
                 "part_number", "serial_number", "production_job_number", 
                 "department_company", "syspro_code", "manuf_items", 
                 "inspection_phase", "total_qty", "qty_accepted", 
@@ -24,18 +46,16 @@ export async function POST(req) {
                 "defect_codes", "remarks", "purchase_order_number"
             ) VALUES (
                 $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 
-                $12, $13, $14, $15, $16, $17, $18, $19, $20
+                $12, $13, $14, $15, $16, $17, $18, $19, $20, $21
             );
         `;
 
         // Values to be inserted
         const values = [
-            'new', // Assuming default status or change as needed
-            code, GRV, date_inspected, project, part_number, 
-            serial_number, production_job_number, department_company, 
-            syspro_code, manuf_items, inspection_phase, total_qty, 
-            qty_accepted, qty_to_be_reworked, qty_rejected, qty_wip, 
-            defect_codes, remarks, purchase_order_number
+            'new', '2024', inspectionNumber, GRV, date_inspected, project,
+            part_number, serial_number, production_job_number, department_company, syspro_code, manuf_items, inspection_phase, total_qty, 
+            qty_accepted, qty_to_be_reworked, qty_rejected, qty_wip, defect_codes, 
+            remarks, purchase_order_number
         ];
 
         // Execute the query

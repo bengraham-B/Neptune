@@ -1,7 +1,9 @@
 CREATE TABLE inspection (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(), 
     status VARCHAR(255),
-    code VARCHAR(255),
+    inspection_code_digit SERIAL,
+    inspection_code_year INT,
+    inspection_code VARCHAR(255),
     GRV DATE,
     date_inspected DATE,
     project VARCHAR(255),
@@ -18,7 +20,7 @@ CREATE TABLE inspection (
     qty_rejected FLOAT,
     qty_wip FLOAT,
     defect_codes VARCHAR(255),
-    remarks TEXT,
     purchase_order_number VARCHAR(255),
-    FTA VARCHAR(255)
-)
+    remarks TEXT,
+    observations TEXT
+);
