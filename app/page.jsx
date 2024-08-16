@@ -5,7 +5,7 @@ import Link from 'next/link'
 // Components
 // import Table from './components/Table'
 // import Table2 from './components/Table2'
-// import Table3 from './components/Table3'
+import Table3 from './components/Table3'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -37,6 +37,7 @@ export default function page() {
     useEffect(() => {
         fetchInspectionRecords()
         setRecords(record_redux)
+        console.log(record_redux)
 
     }, [])
 
@@ -46,8 +47,8 @@ export default function page() {
                 <Link href={"/pages/AddRecord/"} className='py-2 px-4 rounded-md font-2xl bg-blue-600 text-white'>Add Inspection Record</Link>
             </section>
 			
-			<section className='flex p-1'>
-				{/* <Table3/> */}
+			<section className='flex p-1 justify-center w-full'>
+				<Table3/>
 			</section>
 
             {/* This section is to test redux */}

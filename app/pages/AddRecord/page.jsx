@@ -2,8 +2,14 @@
 import Link from 'next/link'
 import React, { useState} from 'react'
 
+// Material Tailwind
+import { Select, Option, input } from "@material-tailwind/react";
+
+
 // Import Inspection Class
 import { InspectionRecordClass } from '@/app/classes/InspectionClass'
+
+
 
 export default function page() {
 
@@ -96,6 +102,10 @@ export default function page() {
 		}
 	}
 
+	const handleChangeDefectCodeInput = () => {
+
+	}
+
 
     return (
         <main className='flex flex-col space-y-4'>
@@ -105,7 +115,7 @@ export default function page() {
 
 			<section className='flex flex-col justify-center mx-20'>
 				<div className='py-2 text-black text-lg'>
-					<h1>Inspection Code Will Be Generated Once Form is sumbmitted</h1>
+					<h1><strong>Inspection Number</strong> Will Be Generated Once Form is sumbmitted</h1>
 				</div>
 
 				<div className='flex p-6 space-x-20 justify-betwween border border-blue-600 rounded'>
@@ -175,8 +185,34 @@ export default function page() {
 							<label className="block text-black text-lg mb-1" htmlFor="code">
 								Defect Codes
 							</label>
-							<input onChange={(e) => setDefectCode(e.target.value)} id="inspection-number" placeholder="Qty Accepted" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-						</div>
+
+							{defectCode ? 
+							
+							<input className='shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline' type="text" value={defectCode} onClick={() => setDefectCode(null)}/>
+
+							:
+							
+							<Select value={defectCode} onChange={(val) => setDefectCode(val)}  color="blue" label="" className='text-black border border-blue-600 text-lg'>
+								<Option value='DB'> <strong className='text-blue-600'>DP </strong> - Datapack</Option>
+								<Option value='DB'> <strong className='text-blue-600'>DP </strong> - Datapack</Option>
+								<Option value="NPO"><strong className='text-blue-600'>NPO</strong> - No Purchase Order</Option>
+								<Option value="BH"> <strong className='text-blue-600'>BH </strong> - Build History & No Document From Suppliers</Option>
+								<Option value="LAB"><strong className='text-blue-600'>LAB</strong> - Labels</Option>
+								<Option value="LEC"><strong className='text-blue-600'>LEC</strong> - Loose Electrical/Electronic Component</Option>
+								<Option value="LMC"><strong className='text-blue-600'>LMC</strong> - Loose Mechanical Components</Option>
+								<Option value="NBD"><strong className='text-blue-600'>NBD</strong> - Not Built to Docuemntation</Option>
+								<Option value="IC"> <strong className='text-blue-600'>IC </strong> - Incorrect Components</Option>
+								<Option value="MC"> <strong className='text-blue-600'>MC </strong> - Missing Component</Option>
+								<Option value="">   <strong className='text-blue-600'>DM </strong> - Damaged Component</Option>
+								<Option value="">   <strong className='text-blue-600'>UAR</strong> - Unauthorised Redlines</Option>
+								<Option value="">   <strong className='text-blue-600'>LLO</strong> - Lower Level Observations Not Cleared</Option>
+								<Option value="">   <strong className='text-blue-600'>WMS</strong> - Workmanship</Option>
+								<Option value="">   <strong className='text-blue-600'>D  </strong> - Design Deficiency</Option>
+								<Option value="">   <strong className='text-blue-600'>O  </strong> - other</Option>								
+							</Select> 
+						}
+							
+						</div>   
     
 					</div>
 

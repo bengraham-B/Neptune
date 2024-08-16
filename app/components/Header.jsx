@@ -35,6 +35,7 @@ export default function Header() {
                 </MenuHandler>
                 <MenuList>
                     <MenuItem onClick={() => dispatch(LOGIN_REDUX())}>Menu Item 1</MenuItem>
+                    {/* <Link href="/pages/addRecord/">Add Inspection Record</Link> */}
                     <MenuItem>Menu Item 2</MenuItem>
                     <MenuItem onClick={() => dispatch(LOGOUT_REDUX())}>Logout</MenuItem>
                 </MenuList>
