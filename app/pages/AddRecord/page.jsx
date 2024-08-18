@@ -34,30 +34,6 @@ export default function page() {
 	const [remarks, setRemarks] = useState()
 	const [serialNumbers, setSerialNumbers] = useState()
 
-	// const inspectionRecord = new InspectionRecordClass(
-	// 	null, // id
-	// 	"Created", // Status
-	// 	null, // InspectionCode
-	// 	GRV, 
-	// 	dateInspected,
-	// 	project,
-	// 	partNumber,
-	// 	serialNumbers,
-	// 	productionJobNumber,
-	// 	departmentCompany,
-	// 	sysproCode,
-	// 	manufItems,
-	// 	"NA", //InspectionPhase
-	// 	totalQty,
-	// 	acceptedQty,
-	// 	qtyToBeReworked,
-	// 	qtyRejected,
-	// 	qtyWIP,
-	// 	defectCode,
-	// 	remarks,
-	// 	purchaseOrderNumber
-	// )
-
 	const createInspectionRecordObject = {
 		status: "Created", 
 		GRV: GRV, 
@@ -108,8 +84,8 @@ export default function page() {
 
 
     return (
-        <main className='flex flex-col space-y-4'>
-			<section className='flex justify-center py-4 text-3xl text-black'>Add Inspection Record</section>
+        <main className='flex flex-col space-y-4 py-4'>
+			<section className='flex justify-center text-4xl text-black font-body font-liht'>ADD INSPECTION RECORD</section>
 
 
 

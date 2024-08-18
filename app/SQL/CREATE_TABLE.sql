@@ -1,7 +1,7 @@
 CREATE TABLE inspection (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(), 
     status VARCHAR(255),
-    inspection_code_digit SERIAL,
+    inspection_code_digit INT,
     inspection_code_year INT,
     inspection_code VARCHAR(255),
     GRV DATE,

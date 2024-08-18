@@ -22,15 +22,36 @@ export async function POST(req) {
             qty_rejected, qty_wip, defect_codes, remarks, purchase_order_number
         } = await req.json();
         
-        const inspectionDigit = await getLatestInspectionCode()
+        let inspectionDigit = await getLatestInspectionCode()
 
-        if(inspectionDigit === "Error"){
-            return NextResponse.json({ status: 400, msg: "Could retrive Latest Inspection Code Digit" });
-        }
 
         let d = new Date()
-        const currentYear = d.getFullYear()
-        const inspectionNumber = `I${currentYear-2000}/${inspectionDigit}`
+        let currentYear = d.getFullYear()
+        let inspectionNumber = `I${currentYear-2000}/${inspectionDigit}`
+
+
+        if(inspectionDigit === "Error"){
+            // Checks to see if there is a base record by checking the the DB has any records.
+            const checkRowAmount = await pool.query(`SELECT count(*) FROM inspection`)
+            // console.log(checkRowAmount.rows[0].count)
+            if(checkRowAmount.rows[0].count == 0){
+                inspectionDigit = 1
+                inspectionNumber = `I${currentYear-2000}/${inspectionDigit}`
+
+            }
+            else {
+                return NextResponse.json({ status: 400, msg: "Could retrive Latest Inspection Code Digit" });
+            }
+        }
+
+        else {
+            inspectionDigit++
+            inspectionNumber = `I${currentYear-2000}/${inspectionDigit}`
+        
+        }
+
+
+            
 
 
         
@@ -38,7 +59,7 @@ export async function POST(req) {
         // SQL Insert Query
         const SQL = `
             INSERT INTO inspection (
-                "status", "inspection_code_year", "inspection_code", "grv", "date_inspected", "project", 
+                "status","inspection_code_digit", "inspection_code_year", "inspection_code", "grv", "date_inspected", "project", 
                 "part_number", "serial_number", "production_job_number", 
                 "department_company", "syspro_code", "manuf_items", 
                 "inspection_phase", "total_qty", "qty_accepted", 
@@ -46,13 +67,13 @@ export async function POST(req) {
                 "defect_codes", "remarks", "purchase_order_number"
             ) VALUES (
                 $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 
-                $12, $13, $14, $15, $16, $17, $18, $19, $20, $21
+                $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22
             );
         `;
 
         // Values to be inserted
         const values = [
-            'new', '2024', inspectionNumber, GRV, date_inspected, project,
+            'new',inspectionDigit , '2024', inspectionNumber, GRV, date_inspected, project,
             part_number, serial_number, production_job_number, department_company, syspro_code, manuf_items, inspection_phase, total_qty, 
             qty_accepted, qty_to_be_reworked, qty_rejected, qty_wip, defect_codes, 
             remarks, purchase_order_number

@@ -25,11 +25,16 @@ export async function GET(){
     try {
         const SQL = `SELECT * FROM inspection`
         const query = await pool.query(SQL)
-        return NextResponse.json({records: query.rows}, {status: 400})
+        console.log("All Good :)")
+        // console.log(query.rows)
+        const records = query.rows
+        return NextResponse.json({records: records}, {status: 200})
 
         
     } catch (error) {
-        return NextResponse.json({status: 400})
+        console.log("All Bad :(", error.message)
+
+        return NextResponse.json({status: 400}, {error: error.message})
     }
     // return NextResponse.json({records: mockInspectionRecords}, {status: 200})
 }

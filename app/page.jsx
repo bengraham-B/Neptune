@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 // Components
-// import Table from './components/Table'
-// import Table2 from './components/Table2'
-import Table3 from './components/Table3'
+import Table from './components/Table'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -37,7 +35,7 @@ export default function page() {
     useEffect(() => {
         fetchInspectionRecords()
         setRecords(record_redux)
-        console.log(record_redux)
+        // console.log(record_redux)
 
     }, [])
 
@@ -48,7 +46,7 @@ export default function page() {
             </section>
 			
 			<section className='flex p-1 justify-center w-full'>
-				<Table3/>
+				<Table/>
 			</section>
 
             {/* This section is to test redux */}
