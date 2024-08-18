@@ -13,14 +13,12 @@ import { setInspectionRecords } from './GlobalRedux/Inspection/inspectionSlice'
 
 
 export default function page() {
-    const [records, setRecords] = useState([])
     const dispatch = useDispatch()
 
     const fetchInspectionRecords = async () => {
         try {
             const response = await fetch('/api/getInspectionRecords/')
             const data = await response.json()
-            console.log("Fetch Inspection records API")
             dispatch(setInspectionRecords(data.records))
         } catch (error) {
             console.error("Could not fetch Inspections Records.", error.message)
@@ -28,14 +26,12 @@ export default function page() {
     }
     
 
-    const count = useSelector((state) => state.counter.value)
-    const record_redux = useSelector((state) => state.inspection.value)
+    // const count = useSelector((state) => state.counter.value)
+    // const record_redux = useSelector((state) => state.inspection.value)
     
 
     useEffect(() => {
         fetchInspectionRecords()
-        setRecords(record_redux)
-        // console.log(record_redux)
 
     }, [])
 

@@ -1,43 +1,23 @@
 "use client"
-import React, {useState, useEffect} from 'react'
+import React from 'react'
+import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+
 
 // Redux
-import store from '../GlobalRedux/store'
 import { useSelector } from 'react-redux'
 
 export default function Table() {
-    const [records, setRecords] = useState([])
+    const router = useRouter()
+
+
 
     //~ Getting records from REDUX
     const recordsRedux = useSelector((state) => state.inspection.value)
 
-
-
-
-
-    // Fetching the inspection Records from the Server.
-    // const fetchInspectionRecords = async () => {
-    //     const response = await fetch(`/api/getInspectionRecords/`, {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         }
-    //     })
-    //     if(response.ok){
-    //         const data = await response.json()
-    //         setRecords(data.records)
-    //     }
-
-    //     else {
-    //         console.error(data.error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchInspectionRecords()
-    // }, [])
-
-    // useEffect(() => {console.log("Table3: ", records)}, [records])
+    const openInspectionRecord = async (id) => {
+        router.push(`/${id}`)
+    }
 
   return (
     <section>
@@ -58,17 +38,19 @@ export default function Table() {
             <tbody>
 
                 {recordsRedux && recordsRedux.map((R) => (
-                    <tr className='text-black hover:bg-gray-300' key={R.id}>
-                        <td className='px-6  py-2 text-center'>{R.inspection_code}</td>
-                        <td className='px-6  py-2 text-center'>{R.grv}</td>
-                        <td className='px-6  py-2 text-center'>{R.date_inspected}</td>
-                        <td className='px-6  py-2 text-center'>{R.project}</td>
-                        <td className='px-6  py-2 text-center'>{R.part_number}</td>
-                        <td className='px-6  py-2 text-center'>{R.total_qty}</td>
-                        <td className='px-6  py-2 text-center'>{R.qty_to_be_reworked}</td>
-                        <td className='px-6  py-2 text-center'>{R.qty_rejected}</td>
-                        <td className='px-6  py-2 text-center'>{R.qty_wip}</td>
+                        //  <Link href="/" className='flex'>
+                    <tr className='text-black hover:bg-gray-300' key={R.id} onClick={() => openInspectionRecord(R.id)}>
+                            <td className='px-6  py-2 text-center'>{R.inspection_code}</td>
+                            <td className='px-6  py-2 text-center'>{R.grv}</td>
+                            <td className='px-6  py-2 text-center'>{R.date_inspected}</td>
+                            <td className='px-6  py-2 text-center'>{R.project}</td>
+                            <td className='px-6  py-2 text-center'>{R.part_number}</td>
+                            <td className='px-6  py-2 text-center'>{R.total_qty}</td>
+                            <td className='px-6  py-2 text-center'>{R.qty_to_be_reworked}</td>
+                            <td className='px-6  py-2 text-center'>{R.qty_rejected}</td>
+                            <td className='px-6  py-2 text-center'>{R.qty_wip}</td>
                     </tr>
+                        // </Link>
                 ))}
 
                  {/* <tr className='text-black hover:bg-gray-300 '>

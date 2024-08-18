@@ -79,14 +79,11 @@ export async function POST(req) {
             remarks, purchase_order_number
         ];
 
-        // Execute the query
         await pool.query(SQL, values);
 
-        // Return success response
         return NextResponse.json({ status: 200, msg: "Successfully Inserted Transaction" });
+        
     } catch (error) {
-        // Log error and return failure response
-        console.error('Error inserting record:', error.message);
         return NextResponse.json({ status: 400, msg: "Could not insert Record" });
     }
 }

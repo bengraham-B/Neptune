@@ -84,8 +84,8 @@ export default function page() {
 
 
     return (
-        <main className='flex flex-col space-y-4 py-4'>
-			<section className='flex justify-center text-4xl text-black font-body font-liht'>ADD INSPECTION RECORD</section>
+        <main className='flex flex-col space-y-4'>
+			<section className='flex justify-center py-4 text-3xl text-black font-body font-liht'>ADD INSPECTION RECORD</section>
 
 
 
@@ -94,7 +94,7 @@ export default function page() {
 					<h1><strong>Inspection Number</strong> Will Be Generated Once Form is sumbmitted</h1>
 				</div>
 
-				<div className='flex p-6 space-x-20 justify-betwween border border-blue-600 rounded'>
+				<div className='flex p-6 space-x-20 justify-between border border-blue-600 rounded'>
 
 					<div id="Column-1" className="flex flex-col space-y-4">
 						<div>

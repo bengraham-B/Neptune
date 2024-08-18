@@ -22,13 +22,18 @@ export default function Header() {
     const auth = useSelector((state) => state.auth.value)
 
   return (
-    <main className='flex bg-blue-700 text-white py-4 px-2'>
-        <section className='w-[50%]'>
+    <main className='flex bg-blue-700 text-white py-5 px-2 '>
+        <section className='w-1/3'>
             <Link href="/">
-                <h1 className='text-3xl'>Neptune</h1>
+                <h1 className='text-3xl'>Home</h1>
             </Link>
         </section>
-        <section className='w-[50%] flex justify-end'>
+
+        <section className='flex justify-center text-center w-1/3'>
+            <h1 className='text-3xl'>RRS Inspection Register</h1>
+        </section>
+
+        <section className='flex justify-end w-1/3'>
             <Menu className="bg-white">
                 <MenuHandler>
                     <Button>{auth}</Button>

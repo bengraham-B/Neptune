@@ -1,0 +1,1 @@
+SELECT * FROM inspection WHERE id=${id}
