@@ -81,7 +81,7 @@ export async function POST(req) {
 
         await pool.query(SQL, values);
 
-        return NextResponse.json({ status: 200, msg: "Successfully Inserted Transaction" });
+        return NextResponse.json({ status: 200, msg: "Successfully Inserted Inspection" });
         
     } catch (error) {
         return NextResponse.json({ status: 400, msg: "Could not insert Record" });

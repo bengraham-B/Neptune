@@ -8,6 +8,8 @@ import { Select, Option, input } from "@material-tailwind/react";
 export default function page({params}) {
     const id = params.id
 
+    const [status, setStatus] = useState()
+
     const [inspectionCode, setInspectionCode] = useState()
     const [GRV, setGRV] = useState()
 	const [dateInspected, setDateInspected] = useState()
@@ -47,6 +49,7 @@ export default function page({params}) {
             setPartNumber(data.record.part_number)
             setTotalQty(data.record.totalQty)
             setProductionJobNumber(data.record.productionJobNumber)
+            setStatus(data.record.status)
         }
 
     }
@@ -62,8 +65,9 @@ export default function page({params}) {
 
 
         <section className='flex flex-col justify-center mx-20'>
-            <div className='py-2 text-black text-lg flex flex-row'>
+            <div className='py-2 text-black text-lg flex flex-row justify-between'>
                 <h1  className='flex flex-row'><strong className='text-2xl'>Inspection Number</strong>: <p className='text-blue-600 pl-2 text-2xl'> {inspectionCode}</p></h1>
+                <h1  className='flex flex-row'><strong className='text-2xl'>Status</strong>: <p className='text-blue-600 pl-2 text-2xl'> {status}</p></h1>
             </div>
 
             <div className='p-6  justify-between border border-blue-600 rounded'>
@@ -93,7 +97,7 @@ export default function page({params}) {
 
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
-                            Remarks 
+                            Total Qty 
                         </label>
                         <input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
@@ -103,29 +107,29 @@ export default function page({params}) {
                 <div id="row-2" className='flex flex-row space-x-4 justify-between py-4'>
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="project1">
-                            Total Qty
+                            Qty Accpeted
                         </label>
-                        <input onChange={(e) => setProject(e.target.value)} id="project1" placeholder={totalQty} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setProject(e.target.value)} id="project1" placeholder={totalQty} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 						
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="project">
-                            Syspro Code
+                            Qty WIP
                         </label>
-                        <input onChange={(e) => setSysproCode(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setSysproCode(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
 
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
-                            Qty To Be Reworked
+                           Qty Rejected
                         </label>
                         <input onChange={(e) => setQtyToBeReworked(e.target.value)} id="inspection-number" placeholder="Qty To Be Reworked" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
-                            Remarks 
+                            Qty To Be Reworked
                         </label>
                         <input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>

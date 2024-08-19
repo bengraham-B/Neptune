@@ -23,7 +23,7 @@ export async function POST(req){
 
 export async function GET(){
     try {
-        const SQL = `SELECT * FROM inspection`
+        const SQL = `SELECT * FROM inspection ORDER BY inspection_code_digit`
         const query = await pool.query(SQL)
         console.log("All Good :)")
         // console.log(query.rows)
