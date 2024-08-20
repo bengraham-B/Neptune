@@ -44,15 +44,48 @@ export default function page({params}) {
 
         if(response.ok){
             const data = await response.json()
+            console.log(data.record)
             setInspectionCode(data.record.inspection_code)
             setProject(data.record.project)
             setPartNumber(data.record.part_number)
-            setTotalQty(data.record.totalQty)
-            setProductionJobNumber(data.record.productionJobNumber)
+            setTotalQty(data.record.total_qty)
+            setProductionJobNumber(data.record.production_job_number)
             setStatus(data.record.status)
+            setAcceptedQty(data.record.qty_accepted)
+            setQtyRejected(data.record.qty_rejected)
+            setQtyWIP(data.record.qty_wip)
+            setQtyToBeReworked(data.record.qty_to_be_reworked)
         }
 
     }
+
+    const handleEdit = async () => {
+        const response = await fetch('/api/updateInspectionRecord/', {
+            method: "PUT",
+            body: JSON.stringify({
+                id: params.id,
+                project:project,
+                part_number: partNumber,
+                production_job_number: productionJobNumber,
+                total_qty: totalQty,
+                qty_accepted: acceptedQty,
+                qty_wip: qtyWIP,
+                qty_rejected: qtyRejected,
+                qty_to_be_reworked: qtyToBeReworked
+
+            })
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+        } 
+
+        else {
+            alert("Error Updating Inspection Record")
+        }
+
+    } 
 
     useEffect(() => {
         fetchInspectionReport()
@@ -77,14 +110,14 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="project1">
                             Project
                         </label>
-                        <input onChange={(e) => setProject(e.target.value)} id="project1" placeholder={project} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setProject(e.target.value)} id="project1" value={project} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
 						
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="project">
                             Part Number
                         </label>
-                        <input onChange={(e) => setSysproCode(e.target.value)} id="" placeholder={partNumber} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setPartNumber(e.target.value)} id="" value={partNumber} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
 
 
@@ -92,14 +125,14 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Production Job Number
                         </label>
-                        <input onChange={(e) => setQtyToBeReworked(e.target.value)} id="inspection-number" placeholder={productionJobNumber} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+                        <input onChange={(e) => setProductionJobNumber(e.target.value)} id="inspection-number" value={productionJobNumber} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
 
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Total Qty 
                         </label>
-                        <input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setTotalQty(e.target.value)} id="inspection-number" value={totalQty} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
 				</div>
@@ -109,14 +142,14 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="project1">
                             Qty Accpeted
                         </label>
-                        <input onChange={(e) => setProject(e.target.value)} id="project1" placeholder={totalQty} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+                        <input onChange={(e) => setAcceptedQty(e.target.value)} id="project1" value={acceptedQty} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 						
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="project">
                             Qty WIP
                         </label>
-                        <input onChange={(e) => setSysproCode(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+                        <input onChange={(e) => setQtyWIP(e.target.value)} id="qty-wip" value={qtyWIP} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
 
@@ -124,14 +157,14 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                            Qty Rejected
                         </label>
-                        <input onChange={(e) => setQtyToBeReworked(e.target.value)} id="inspection-number" placeholder="Qty To Be Reworked" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+                        <input onChange={(e) => setQtyRejected(e.target.value)} id="qty-rejected" value={qtyRejected} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
                     <div className='w-[22.5%]'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Qty To Be Reworked
                         </label>
-                        <input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setQtyToBeReworked(e.target.value)} id="inspection-number" value={qtyToBeReworked} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
                     </div>
 
 				</div>
@@ -142,7 +175,7 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Remarks 
                         </label>
-                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline h-20"  type="text" />
+                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline h-20"  type="text" />
                     </div>
                     <div className='w-1/2'>
                         <label className="block text-black text-lg mb-1" htmlFor="code">
@@ -176,7 +209,7 @@ export default function page({params}) {
 
         <section className='flex justify-center space-x-9'>
             <Link href={"/"} className='px-4 py-2 bg-red-600 text-white rounded'>Cancel</Link>
-            <button className='px-4 py-2 bg-blue-600 text-white rounded'>UPDATE</button>
+            <button onClick={handleEdit} className='px-4 py-2 bg-blue-600 text-white rounded'>UPDATE</button>
         </section>
     </main>
     )

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 // Components
-import Table from './components/Table'
+// import Table from './components/Table'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -12,7 +12,7 @@ import { increment, decrement, incrementByAmount } from './GlobalRedux/Features/
 import { setInspectionRecords } from './GlobalRedux/Inspection/inspectionSlice'
 
 
-export default function page() {
+export default function Home() {
     const dispatch = useDispatch()
 
     const fetchInspectionRecords = async () => {
@@ -42,7 +42,8 @@ export default function page() {
             </section>
 			
 			<section className='flex p-1 justify-center w-full'>
-				<Table/>
+				{/* <Table/> */}
+                <h1>Home Page</h1>
 			</section>
 
             {/* This section is to test redux */}

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import pool from "@/app/database/database";
 
-export async function PUT(){
+export async function PUT(req){
     const {
-        status, GRV, date_inspected, project, part_number, serial_number, 
+        id, status, GRV, date_inspected, project, part_number, serial_number, 
         production_job_number, department_company, syspro_code, manuf_items, 
         inspection_phase, total_qty, qty_accepted, qty_to_be_reworked, 
         qty_rejected, qty_wip, defect_codes, remarks, purchase_order_number
@@ -31,8 +31,8 @@ export async function PUT(){
             qty_wip=$16,
             defect_codes=$17,
             remarks=$18,
-            purchase_order_number=$19,
-        WHERE id=${id}        
+            purchase_order_number=$19
+        WHERE id='${id}'        
         `
 
         const values =[
@@ -62,6 +62,6 @@ export async function PUT(){
         return NextResponse.json({ status: 200, msg: "Successfully Updated Inspection" });
 
     } catch (error) {
-        return NextResponse.json({ status: 400, msg: "Could not insert Record" });
+        return NextResponse.json({ status: 400, msg: "Could not insert Record", error: error.message });
     }
 }
