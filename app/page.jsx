@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 // Components
-// import Table from './components/Table'
+import Table from './components/Table'
 
 // Redux
 import store from './GlobalRedux/store'
@@ -42,8 +42,7 @@ export default function Home() {
             </section>
 			
 			<section className='flex p-1 justify-center w-full'>
-				{/* <Table/> */}
-                <h1>Home Page</h1>
+				<Table/>
 			</section>
 
             {/* This section is to test redux */}

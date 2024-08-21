@@ -20,8 +20,12 @@ export default function Table() {
     }
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString.replace(' ', 'T'))
-        return date.toLocaleDateString('en-GB') // Format as 'DD/MM/YYYY'
+        try {
+            const date = new Date(dateString.replace(' ', 'T'))
+            return date.toLocaleDateString('en-GB') // Format as 'DD/MM/YYYY'
+        } catch (error) {
+            return null
+        }
     }
 
   return (
@@ -43,7 +47,7 @@ export default function Table() {
             </thead>
             <tbody>
 
-                {recordsRedux && recordsRedux.map((R) => (
+                {recordsRedux && recordsRedux.map((R, I) => (
                         //  <Link href="/" className='flex'>
                     <tr className='text-black hover:bg-gray-300' key={R.id} onClick={() => openInspectionRecord(R.id)}>
                             <td className='px-6  py-2 text-center'>{R.inspection_code}</td>

@@ -19,6 +19,6 @@ export default withAuth(function middleware(req){
 
 
 
-export const config = { matcher : ["/CreateUser"]}
+export const config = { matcher : ["/"]}
 // This will specifiy which pages will be protected.
 // export const config = { matcher : ["/CreateUser", "/pages/AddRecord", "/pages/EditRecord", "/"]}

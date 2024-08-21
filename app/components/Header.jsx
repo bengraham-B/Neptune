@@ -2,6 +2,9 @@
 import React from 'react'
 import Link from 'next/link'
 
+// Next Auth
+import {useSession} from 'next-auth/react'
+import { redirect } from 'next/navigation'
 // Redux
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,7 +20,14 @@ import {
   } from "@material-tailwind/react";
    
 
-export default function Header() {
+export default  function Header() {
+    // const session = await getServerSession(options)
+    const {data: session} = useSession({
+		required: true,
+		onUnauthenticated(){
+			redirect("/api/auth/signin?callbackUrl=/")
+		}
+	})
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.value)
 
@@ -33,18 +43,16 @@ export default function Header() {
             <h1 className='text-3xl'>RRS Inspection Register</h1>
         </section>
 
-        <section className='flex justify-end w-1/3'>
-            <Menu className="bg-white">
-                <MenuHandler>
-                    <Button>{auth}</Button>
-                </MenuHandler>
-                <MenuList>
-                    <MenuItem onClick={() => dispatch(LOGIN_REDUX())}>Menu Item 1</MenuItem>
-                    {/* <Link href="/pages/addRecord/">Add Inspection Record</Link> */}
-                    <MenuItem>Menu Item 2</MenuItem>
-                    <MenuItem onClick={() => dispatch(LOGOUT_REDUX())}>Logout</MenuItem>
-                </MenuList>
-            </Menu>
+        <section className='flex justify-end w-1/3 space-x-4 pr-4 align-middle'>
+
+            <div className='text-lg flex align-middle py-2'>
+                <p className='text-lg flex align-middle text-center'>{session?.user?.name}</p>
+            </div>
+
+            <div className='text-lg flex align-middle'>
+                {session ? <Link href="/api/auth/signout?callbackUrl=/" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Logout</Link> : <Link href="/api/auth/signin" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Login</Link> }
+            </div>
+
         </section>
     </main>
   )

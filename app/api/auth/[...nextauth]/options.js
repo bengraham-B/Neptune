@@ -12,7 +12,10 @@ export const options = {
                 let userRole = "Github User"
                 if(profile?.email === "grahamben7@gmail.com"){
                     userRole = "admin"
+                    return NextResponse({"message": "Not registered user"}, {status:403})
                 }
+
+
 
                 return {
                     ...profile,
@@ -26,45 +29,53 @@ export const options = {
             profile(profile){
                 console.log("Profile of google: ", profile)
 
-
-                let userRole = "Google User"
-                if(profile?.email === "grahamben7work@gmail.com"){
-                    // return
-                    userRole = "admin"
-                }
-
-                return {
+                const acceptedEmails = ["grahamben7@gmail.com", "user1@gmail.com", "user2@gmail.com", "user3@gmail.com"];
+                let userRole = "Google User";
+        
+                if (acceptedEmails.includes(profile?.email)) {
+                  if (profile?.email === "grahamben7@gmail.com") {
+                    userRole = "admin";
+                  }
+                  return {
                     ...profile,
                     id: profile.sub,
-                    role: userRole
+                    role: userRole,
+                  };
+                } else {
+                  // Redirect to the "/Denied" page if the email is not in the accepted list
+                  return NextResponse.redirect("/Denied", 403);
                 }
+
+
             },
             clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET
+            clientSecret: process.env.GOOGLE_SECRET,
+            authorization: { params: { prompt: "select_account" } }, // Force account selection each time
         }),
-        CredentialsProvider({
-            name: "Credentials",
-            credentials: {
-                email: {
-                    label: "email",
-                    type: "text",
-                    placeholder: "your-email"
-                },
-                password: {
-                    label: "password",
-                    type: "password",
-                    placeholder: "your-password"
-                }
-            },
-            async authorize(credentials){
-                try {
-                    
-                } catch (error) {
-                    console.log(error)
-                }
-                return null //^ This means that they will not be authenticated
-            }
-        }),
+        // CredentialsProvider({
+        //     name: "Credentials",
+        //     credentials: {
+        //         email: {
+        //             label: "email",
+        //             type: "text",
+        //             placeholder: "your-email"
+        //         },
+        //         password: {
+        //             label: "password",
+        //             type: "password",
+        //             placeholder: "your-password"
+        //         }
+        //     },
+        //     // Add this later 01:22:00
+        //     async authorize(credentials){
+        //         try {
+        //             const founduser = "await" 
+        //         } catch (error) {
+        //             console.log(error)
+        //         }
+        //         return null //^ This means that they will not be authenticated
+        //     }
+        // }),
     ],
     
     // Adding role to the token
