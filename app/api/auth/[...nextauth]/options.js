@@ -27,7 +27,7 @@ export const options = {
         }),
         GoogleProvider({
             profile(profile){
-                console.log("Profile of google: ", profile)
+                // console.log("Profile of google: ", profile)
 
                 const acceptedEmails = ["grahamben7@gmail.com", "user1@gmail.com", "user2@gmail.com", "user3@gmail.com"];
                 let userRole = "Google User";

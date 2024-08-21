@@ -1,6 +1,8 @@
 "use client"
 import Link from 'next/link'
 import React, { useState} from 'react'
+import { useRouter } from 'next/navigation';
+
 
 // Material Tailwind
 import { Select, Option, input } from "@material-tailwind/react";
@@ -12,9 +14,32 @@ import { InspectionRecordClass } from '@/app/classes/InspectionClass'
 
 
 export default function page() {
+	// Initilising the router on the clinet side
+	const router = useRouter();
 
-	const [GRV, setGRV] = useState()
-	const [dateInspected, setDateInspected] = useState()
+	// Get current date 
+	const currentDate = new Date();
+	const year = currentDate.getFullYear();
+	const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+	const day = String(currentDate.getDate()).padStart(2, '0');
+
+	const postgresDate = `${year}-${month}-${day}`;
+	console.log(postgresDate); // Output example: "2024-08-21"
+
+	const formatDate = (dateString) => {
+        try {
+            const date = new Date(dateString.replace(' ', 'T'))
+            return date.toLocaleDateString('en-GB') // Format as 'DD/MM/YYYY'
+        } catch (error) {
+            return null
+        }
+    }
+
+	const currentDatePrint = (`${day}/${month}/${year}`)
+	console.log(currentDatePrint)
+
+	const [GRV, setGRV] = useState(currentDate)
+	const [dateInspected, setDateInspected] = useState(currentDate)
 	const [project, setProject] = useState()
 	const [partNumber, setPartNumber] = useState()
 	const [purchaseOrderNumber, setPurchaseOrderNumber] = useState()
@@ -69,7 +94,7 @@ export default function page() {
 		const data = await response.json()
 
 		if (response.ok){
-			console.log(200, data)
+			router.push('/')
 			
 		}
 
@@ -101,7 +126,7 @@ export default function page() {
 							<label className="block text-black text-lg mb-1" htmlFor="code">
 								GRV
 							</label>
-							<input onChange={(e) => setGRV(e.target.value)} id="code" placeholder="Code"  className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date" />
+							<input onChange={(e) => setGRV(e.target.value)}  id="code" placeholder="Code"  className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date" />
 						</div>
 
 						<div>
@@ -140,7 +165,7 @@ export default function page() {
 							<label className="block text-black text-lg mb-1" htmlFor="GRV">
 								Date Inspected
 							</label>
-							<input onChange={(e) => setDateInspected(e.target.value)} id="GRV" placeholder="GRV" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date"/>
+							<input onChange={(e) => setDateInspected(e.target.value)}  id="GRV" placeholder="GRV" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date"/>
 						</div>
 						
 						<div>

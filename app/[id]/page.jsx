@@ -1,11 +1,15 @@
 "use client"
 import React, {useEffect, useState} from 'react'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // Material Tailwind
 import { Select, Option, input } from "@material-tailwind/react";
 
 export default function page({params}) {
+    // Initilising the router on the clinet side
+	const router = useRouter();
+
     const id = params.id
 
     const [status, setStatus] = useState()
@@ -55,6 +59,7 @@ export default function page({params}) {
             setQtyRejected(data.record.qty_rejected)
             setQtyWIP(data.record.qty_wip)
             setQtyToBeReworked(data.record.qty_to_be_reworked)
+            setSerialNumbers(data.record.serial_number)
         }
 
     }
@@ -71,14 +76,17 @@ export default function page({params}) {
                 qty_accepted: acceptedQty,
                 qty_wip: qtyWIP,
                 qty_rejected: qtyRejected,
-                qty_to_be_reworked: qtyToBeReworked
+                qty_to_be_reworked: qtyToBeReworked,
+
+
+                serial_number: serialNumbers
 
             })
         })
 
         if(response.ok){
             const data = await response.json()
-            console.log(data)
+            router.push('/')
         } 
 
         else {
@@ -181,7 +189,7 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Observations 
                         </label>
-                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline h-20"  type="text" />
+                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Observations" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline h-20"  type="text" />
                     </div>
 
 				</div>
@@ -191,7 +199,7 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Serial Numbers 
                         </label>
-                        <input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Serial Numbers" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setSerialNumbers(e.target.value)} id="inspection-number" value={serialNumbers} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
                 </div>
 

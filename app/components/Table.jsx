@@ -65,6 +65,8 @@ export default function Table() {
                         // </Link>
                 ))}
 
+                
+
                  {/* <tr className='text-black hover:bg-gray-300 '>
                     <td className='px-6  py-2 text-center'>I24/678</td>
                     <td className='px-6  py-2 text-center'>6 Aug 2024</td>
@@ -78,6 +80,11 @@ export default function Table() {
                 </tr>*/}
             </tbody>
         </table>
+
+        <div className='flex justify-center my-6 text-2xl text-blue-600'>
+            {recordsRedux && recordsRedux.length === 0 ? <p>No Records</p>: null}
+        </div>
+
     </section>
   )
 }
