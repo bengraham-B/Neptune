@@ -1,5 +1,6 @@
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import AzureADProvider from "next-auth/providers/azure-ad"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { NextResponse } from "next/server"
 
@@ -25,6 +26,7 @@ export const options = {
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET
         }),
+
         GoogleProvider({
             profile(profile){
                 // console.log("Profile of google: ", profile)
@@ -50,7 +52,7 @@ export const options = {
             },
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
-            authorization: { params: { prompt: "select_account" } }, // Force account selection each time
+            // authorization: { params: { prompt: "select_account" } }, // Force account selection each time
         }),
         // CredentialsProvider({
         //     name: "Credentials",
@@ -77,6 +79,8 @@ export const options = {
         //     }
         // }),
     ],
+
+    // secret: process.env.SECRET,
     
     // Adding role to the token
     callbacks: {
