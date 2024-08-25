@@ -81,6 +81,17 @@ export const options = {
     ],
 
     // secret: process.env.SECRET,
+
+     // Add session configuration here
+     session: {
+        strategy: "jwt", // Use JSON Web Token for sessions
+        maxAge: 30 * 24 * 60 * 60, // Set session duration (e.g., 30 days)
+        updateAge: 24 * 60 * 60, // Optional: Set interval for refreshing the session in seconds
+    },
+
+    jwt: {
+        maxAge: 60 * 60 * 60, // 1 hour
+      },
     
     // Adding role to the token
     callbacks: {

@@ -12,6 +12,9 @@ export default function page({params}) {
 
     const id = params.id
 
+    // Status Variable
+    const [statusVariableState, setStatusVariableState] = useState()
+
     // Above Table
     const [inspectionCode, setInspectionCode] = useState() //
     const [status, setStatus] = useState() //
@@ -75,7 +78,7 @@ export default function page({params}) {
             setQtyWIP(Number(data.record.qty_wip))
             setQtyToBeReworked(Number(data.record.qty_to_be_reworked))
             setSerialNumbers(data.record.serial_number)
-            }
+        }
             
     }
 
@@ -132,6 +135,7 @@ export default function page({params}) {
 
     useEffect(() => {
         fetchInspectionReport()
+        console.log("------>", status)
     }, [])
     
 
@@ -146,7 +150,19 @@ export default function page({params}) {
         <section className='flex flex-col justify-center mx-20'>
             <div className='py-2 text-black text-lg flex flex-row justify-between'>
                 <h1  className='flex flex-row'><strong className='text-2xl'>Inspection Number</strong>: <p className='text-blue-600 pl-2 text-2xl'> {inspectionCode}</p></h1>
-                <h1  className='flex flex-row'><strong className='text-2xl'>Status</strong>: <p className='text-blue-600 pl-2 text-2xl'> {status}</p></h1>
+                <div  className='flex flex-row align-middle justify-between gap-2 px-2'>
+                        <h1 className='text-2xl flex align-midle text-center'>Status</h1> 
+                        <div>
+
+                            <Select label={status} className='flex align-middle'>
+                                <Option>New</Option>
+                                <Option>Material Tailwind Vue</Option>
+                                <Option>Material Tailwind Angular</Option>
+                                <Option>Material Tailwind Svelte</Option>
+                            </Select>
+                        </div>
+                       
+                </div>
             </div>
 
             <div className='p-6  justify-between border border-blue-600 rounded'>
@@ -177,7 +193,7 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="project">
                             Project Code
                         </label>
-                        <input onChange={(e) => setProjectCode(e.target.value)} id="" value={projectCode} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+                        <input onChange={(e) => setProjectCode(e.target.value)} id="" value={projectCode} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
 
 				</div>
