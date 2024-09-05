@@ -22,12 +22,12 @@ import {
 
 export default  function Header() {
     // const session = await getServerSession(options)
-    const {data: session} = useSession({
-		required: true,
-		onUnauthenticated(){
-			redirect("/api/auth/signin?callbackUrl=/")
-		}
-	})
+    // const {data: session} = useSession({
+	// 	required: true,
+	// 	onUnauthenticated(){
+	// 		redirect("/api/auth/signin?callbackUrl=/")
+	// 	}
+	// })
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.value)
 
@@ -46,11 +46,11 @@ export default  function Header() {
         <section className='flex justify-end w-1/3 space-x-4 pr-4 align-middle'>
 
             <div className='text-lg flex align-middle py-2'>
-                <p className='text-lg flex align-middle text-center'>{session?.user?.name}</p>
+                {/* <p className='text-lg flex align-middle text-center'>{session?.user?.name}</p> */}
             </div>
 
             <div className='text-lg flex align-middle'>
-                {session ? <Link href="/api/auth/signout?callbackUrl=/" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Logout</Link> : <Link href="/api/auth/signin" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Login</Link> }
+                {/* {session ? <Link href="/api/auth/signout?callbackUrl=/" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Logout</Link> : <Link href="/api/auth/signin" className='px-4 py-2 rounded text-white border border-white hover:bg-white hover:text-black'>Login</Link> } */}
             </div>
 
         </section>

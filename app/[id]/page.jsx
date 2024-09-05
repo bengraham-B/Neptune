@@ -78,6 +78,7 @@ export default function page({params}) {
             setQtyWIP(Number(data.record.qty_wip))
             setQtyToBeReworked(Number(data.record.qty_to_be_reworked))
             setSerialNumbers(data.record.serial_number)
+            setRemarks(data.record.remarks)
         }
             
     }
@@ -112,7 +113,10 @@ export default function page({params}) {
                     qty_to_be_reworked: qtyToBeReworked,
     
     
-                    serial_number: serialNumbers
+                    serial_number: serialNumbers,
+                    
+                    defect_codes: defectCode,
+                    remarks: remarks
     
                 })
             })
@@ -303,28 +307,20 @@ export default function page({params}) {
                         <label className="block text-black text-lg mb-1" htmlFor="code">
                             Defect Code
                         </label>
-                        <input onChange={(e) => setDefectCode(e.target.value)} id="inspection-number" value={defectCode} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <input onChange={(e) => setDefectCode(e.target.value)} id="inspection-number" value={defectCode}  className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
 
-                    <div>
-                        <label className="block text-black text-lg mb-1" htmlFor="code">
+                    <div className=''>
+                        <label className="block text-black  text-lg mb-1" htmlFor="code">
                             Remarks
                         </label>
-                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value={remarks} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+                        <textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value={remarks}  className=" w-full shadow appearance-none border border-blue-600 bg-inherit rounded py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
                     </div>
                     
                 </div>
-
-                
-
-
-
               
             </div>
                 
-
-
-
         </section>
 
         <section className='flex justify-center space-x-9'>

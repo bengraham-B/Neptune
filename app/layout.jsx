@@ -12,7 +12,7 @@ import Header from "./components/Header";
 import Nav from "./(components)/Nav";
 
 // AuthProvider : used for client side components/pages - only needed when authentication is required on client side
-import AuthProvider from "./(components)/AuthProvider";
+// import AuthProvider from "./(components)/AuthProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +25,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en" className="bg-white">
-			<AuthProvider>
+			{/* <AuthProvider> */}
 				<body className={inter.className}>
 					<Providers>
 
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
 						{children}
 					</Providers>
 				</body>
-			</AuthProvider>
+			{/* </AuthProvider> */}
 		</html>
 	);
 }

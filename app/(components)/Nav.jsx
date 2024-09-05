@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth' //^ Use this to see if there is an 
 import { options } from '../api/auth/[...nextauth]/options'
 
 export default async function Nav() {
-    const session = await getServerSession(options)
+    // const session = await getServerSession(options)
     return (
         <header className='bg-gray-600 text-gray-100'>
             <nav className='flex justify-between items-center px-10 py-4'>
@@ -15,7 +15,7 @@ export default async function Nav() {
                     <Link href="/ClientMember">Client Member</Link>
                     <Link href="/Member">Member</Link>
                     <Link href="/Public">Public</Link>
-                    {session ? <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> : <Link href="/api/auth/signin">Login</Link> }
+                    {/* {session ? <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> : <Link href="/api/auth/signin">Login</Link> } */}
                 </div>
             </nav>
         </header>
