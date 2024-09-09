@@ -107,7 +107,7 @@ export default function page() {
 			const data = await response.json()
 	
 			if (response.ok){
-				router.push('/') // zz
+				router.push('/')
 				
 			}
 	
@@ -119,6 +119,11 @@ export default function page() {
 		else {
 			alert("Qty Fields are Not Equal")
 		}
+	}
+
+	const handleDefectCode = (event) => {
+		setDefectCode(event.target.value); // Save the selected value to state
+    	alert("Selected Value: ", event.target.value);
 	}
 
 	return (
@@ -176,7 +181,7 @@ export default function page() {
 							
 						<div className='w-[22.5%]'>
 							<label className="block text-black text-lg mb-1" htmlFor="project">
-							Serial Numbers
+								Serial Numbers
 							</label>
 							<input onChange={(e) => setSerialNumbers(e.target.value)} id="qty-wip" value={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
 						</div>
@@ -253,14 +258,14 @@ export default function page() {
 					
 						<div>
 							<label className="block text-black text-lg mb-1" htmlFor="code">
-							Qty Rejected
+								Qty Rejected
 							</label>
 							<input onChange={(e) => setQtyRejected(e.target.value)} id="inspection-number" value={qtyRejected}  className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
 						</div>
 						
 						<div>
 							<label className="block text-black text-lg mb-1" htmlFor="code">
-							Qty WIP
+								Qty WIP
 							</label>
 							<input onChange={(e) => setQtyWIP(e.target.value)} id="inspection-number" value={qtyWIP} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
 						</div>
@@ -268,10 +273,37 @@ export default function page() {
 				
 					<div id="row-5" className='flex flex-row space-x-4 justify-between py-2'>
 						<div>
-							<label className="block text-black text-lg mb-1" htmlFor="code">
-								Defect Code
-							</label>
-							<input onChange={(e) => setDefectCode(e.target.value)} id="inspection-number" value={defectCode} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+							<div className="w-full max-w-sm min-w-[233px]">
+								<label className="block mb-1 text-lg text-black">Defect Codes</label>
+
+								<div className="relative">
+									<select
+									value={defectCode}
+									onChange={handleDefectCode}
+									className="w-full h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded px-3 py-2 appearance-none cursor-pointer">
+										<option value={qtyRejected}>{qtyRejected}</option>
+										<option value="bucharest">Bucharest</option>
+										<option value="london">London</option>
+										<option value="washington">Washington</option>
+										</select>
+
+										<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										strokeWidth="1.2"
+										stroke="currentColor"
+										className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+											/>
+										</svg>
+								</div>
+							</div>
+
 						</div>
 
 						<div>
