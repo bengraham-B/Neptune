@@ -71,6 +71,7 @@ export default function Home() {
                 <Dialog open={open} handler={handleOpen}>
                     <DialogHeader>Download Inspection Records</DialogHeader>
                         <DialogBody>
+                        <div></div>
 
                             <div className='space-y-4'>
                                 <Select color="blue" label="Status" onChange={(val) => setModalStatus(val)} className='text-black'>
