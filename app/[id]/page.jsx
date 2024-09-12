@@ -50,6 +50,8 @@ export default function page({params}) {
     
 
     const [sumOfQty, setSumOfQty] = useState()
+
+    const [showDefectCodes, setShowDefectCodes] = useState()
   
     
 
@@ -165,12 +167,26 @@ export default function page({params}) {
     }, [])
 
     const handleDefectCode = (event) => {
-		setDefectCode(event.target.value); // Save the selected value to state
+        
+        if (qtyRejected === 0 || qtyToBeReworked === 0){
+            alert("Qty Reqjected or Qty to be reworked must have a value")
+            setShowDefectCodes(false)
+            
+        }
+        
+        else {
+            setShowDefectCodes(true)
+            setDefectCode(event.target.value); // Save the selected value to state
+        }
 	}
 
     const handleStatus = (event) => {
         setStatus(event.target.value)
     }
+
+    useEffect(() => {
+        setShowDefectCodes(!showDefectCodes)
+    }, [qtyRejected])
     
 
 
@@ -200,7 +216,6 @@ export default function page({params}) {
                                 <option value="In-progress">In-progress</option>
                                 <option value="Problem">Problem</option>
                                 <option value="Completed">Completed</option>
-                                
                         </select>
                         
                        
@@ -339,8 +354,8 @@ export default function page({params}) {
 							<input onChange={(e) => setQtyWIP(e.target.value)} id="inspection-number" value={qtyWIP} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
 						</div>
 					</div>
-				
-					<div id="row-5" className='flex flex-row space-x-4 justify-between py-2'>
+
+					<div id="row-5" className={`flex flex-row space-x-4 justify-between py-2 ${qtyRejected < 1 && qtyToBeReworked < 1  ? 'hidden' : ''}`}>
 						<div className='w-full'>
 							
                         	<div>
@@ -350,7 +365,7 @@ export default function page({params}) {
 									value={defectCode}
 									onChange={handleDefectCode}
 									className=" w-[100%] flex justify-start h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded pl-2 pr-16 py-2 appearance-none cursor-pointer">
-                                        <option value="-">- No Defect</option>
+                                        <option value={null}>- No Defect</option>
 										<option value="DP">DP - Datapack</option>
 										<option value="NPO">NPO - No Purchase Order</option>
 										<option value="BH">BH - Build History Incomplete & No Documenation from Suppliers</option>
@@ -369,12 +384,15 @@ export default function page({params}) {
 								</select>
                               
 							</div>
-
-
 						</div>
 						
-						
 					</div>
+                    {/* {
+                        qtyRejected === 0  ? 
+                    
+				<div></div>:
+
+                    } */}
 
 					<div>
 						<div className='w-[100%]'>
