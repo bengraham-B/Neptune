@@ -67,7 +67,7 @@ export default function page() {
 	 const [sumOfQty, setSumOfQty] = useState()
 
 	const createInspectionRecordObject = {
-		status: "Created", 
+		status: "New", 
 		GRV: GRV ? GRV : postgresDate, 
 		date_inspected: dateInspected ? dateInspected : postgresDate,
 		project: projectCode,
@@ -123,7 +123,6 @@ export default function page() {
 
 	const handleDefectCode = (event) => {
 		setDefectCode(event.target.value); // Save the selected value to state
-    	alert("Selected Value: ", event.target.value);
 	}
 
 	return (
@@ -135,7 +134,6 @@ export default function page() {
 			<section className='flex flex-col justify-center mx-20'>
 				<div className='py-1 text-black text-lg flex flex-row justify-between'>
 					<h1  className='flex flex-row'><strong className='text-2xl'>Inspection Number</strong>: <p className='text-blue-600 pl-2 text-2xl'> Inspection Number will be generated once record is completed</p></h1>
-					{/* <h1  className='flex flex-row'><strong className='text-2xl'>Status</strong>: <p className='text-blue-600 pl-2 text-2xl'> {status}</p></h1> */}
 				</div>
 
 				<div className='p-6  justify-between border border-blue-600 rounded'>
@@ -166,7 +164,7 @@ export default function page() {
 							<label className="block text-black text-lg mb-1" htmlFor="project">
 								Project Code
 							</label>
-							<input onChange={(e) => setProjectCode(e.target.value)} id="" value={projectCode} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
+							<input onChange={(e) => setProjectCode(e.target.value)} id="" value={projectCode} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
 						</div>
 
 					</div>
@@ -272,54 +270,51 @@ export default function page() {
 					</div>
 				
 					<div id="row-5" className='flex flex-row space-x-4 justify-between py-2'>
-						<div>
-							<div className="w-full max-w-sm min-w-[233px]">
+						<div className='w-full'>
+							
+                        	<div>
 								<label className="block mb-1 text-lg text-black">Defect Codes</label>
 
-								<div className="relative">
-									<select
+								<select
 									value={defectCode}
 									onChange={handleDefectCode}
-									className="w-full h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded px-3 py-2 appearance-none cursor-pointer">
-										<option value={qtyRejected}>{qtyRejected}</option>
-										<option value="bucharest">Bucharest</option>
-										<option value="london">London</option>
-										<option value="washington">Washington</option>
-										</select>
-
-										<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										strokeWidth="1.2"
-										stroke="currentColor"
-										className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-											/>
-										</svg>
-								</div>
+									className=" w-[100%] flex justify-start h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded pl-2 pr-16 py-2 appearance-none cursor-pointer">
+										<option value="-">- No Defect</option>
+										<option value="DP">DP - Datapack</option>
+										<option value="NPO">NPO - No Purchase Order</option>
+										<option value="BH">BH - Build History Incomplete & No Documenation from Suppliers</option>
+										<option value="LAB">LAB - Labels</option>
+										<option value="LEC">LEC - Loose Electrical / E;ectronic Connections and Components</option>
+										<option value="LMC">LMC - Loose Mechganical Components</option>
+										<option value="NBD">NBD - Not built to Documentation</option>
+										<option value="IC">IC - Incorect Components</option>
+										<option value="MC">MC - Missing Components</option>
+										<option value="DAM">DAM - Damaged Components</option>
+										<option value="UAR">UAR - Unauthorised Redlines</option>
+										<option value="LLO">LLO - Lower Level Observations not Cleared</option>
+										<option value="WMS">WMS - Workmanship</option>
+										<option value="D">D - Design Deficiency</option>
+										<option value="O">O - Other</option>
+								</select>
+                              
 							</div>
 
-						</div>
 
-						<div>
-							<label className="block text-black text-lg mb-1" htmlFor="code">
-								Remarks
-							</label>
-							<textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value={remarks} placeholder={serialNumbers} className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
 						</div>
+						
 						
 					</div>
 
-					
+					<div>
+						<div className='w-[100%]'>
+							<label className="block text-black text-lg mb-1" htmlFor="code">
+								Remarks
+							</label>
+							<textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value={remarks} placeholder={serialNumbers} className="h-24 shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
+						</div>
 
-
-
-				
+						
+					</div>
 				</div>
 					
 
@@ -333,191 +328,4 @@ export default function page() {
 			</section>
     	</main>
     )
-
-    // return (
-    //     <main className='flex flex-col space-y-4'>
-	// 		<section className='flex justify-center py-4 text-3xl text-black font-body font-liht'>ADD INSPECTION RECORD</section>
-
-
-
-	// 		<section className='flex flex-col justify-center mx-20'>
-	// 			<div className='py-2 text-black text-lg'>
-	// 				<h1><strong>Inspection Number</strong> Will Be Generated Once Form is sumbmitted</h1>
-	// 			</div>
-
-	// 			<div className='flex p-6 space-x-20 justify-between border border-blue-600 rounded'>
-
-	// 				<div id="Column-1" className="flex flex-col space-y-4">
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							GRV
-	// 						</label>
-	// 						<input onChange={(e) => setGRV(e.target.value)}  id="code" placeholder="Code"  className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date" />
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Production Job Number
-	// 						</label>
-	// 						<input onChange={(e) => setProductionJobNumber(e.target.value)} id="inspection-number" placeholder="Inspection Number" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Total Qty
-	// 						</label>
-	// 						<input onChange={(e) => setTotalQty(e.target.value)} id="inspection-number" placeholder="Total Qty" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
-	// 					</div>
-						
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Qty WIP
-	// 						</label>
-	// 						<input onChange={(e) => setQtyWIP(e.target.value)} id="inspection-number" placeholder="Qty WIP" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
-	// 					</div>
-						
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Purchase Order
-	// 						</label>
-	// 						<input onChange={(e) => setPurchaseOrderNumber(e.target.value)} id="inspection-number" placeholder="Purchase Order" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-    
-	// 				</div>
-
-	// 				<div id="Column-2" className='flex flex-col space-y-4'>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="GRV">
-	// 							Date Inspected
-	// 						</label>
-	// 						<input onChange={(e) => setDateInspected(e.target.value)}  id="GRV" placeholder="GRV" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="date"/>
-	// 					</div>
-						
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="GRV">
-	// 							Department Company
-	// 						</label>
-	// 						<input onChange={(e) => setDepartmentCompany(e.target.value)} id="GRV" placeholder="Department Company" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text"/>
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Qty Accepted
-	// 						</label>
-	// 						<input onChange={(e) => setAcceptedQty(e.target.value)} id="inspection-number" placeholder="Qty Accepted" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Defect Codes
-	// 						</label>
-
-	// 						{defectCode ? 
-							
-	// 						<input className='shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline' type="text" value={defectCode} onClick={() => setDefectCode(null)}/>
-
-	// 						:
-							
-	// 						<Select value={defectCode} onChange={(val) => setDefectCode(val)}  color="blue" label="" className='text-black border border-blue-600 text-lg'>
-	// 							<Option value='DB'> <strong className='text-blue-600'>DP </strong> - Datapack</Option>
-	// 							<Option value='DB'> <strong className='text-blue-600'>DP </strong> - Datapack</Option>
-	// 							<Option value="NPO"><strong className='text-blue-600'>NPO</strong> - No Purchase Order</Option>
-	// 							<Option value="BH"> <strong className='text-blue-600'>BH </strong> - Build History & No Document From Suppliers</Option>
-	// 							<Option value="LAB"><strong className='text-blue-600'>LAB</strong> - Labels</Option>
-	// 							<Option value="LEC"><strong className='text-blue-600'>LEC</strong> - Loose Electrical/Electronic Component</Option>
-	// 							<Option value="LMC"><strong className='text-blue-600'>LMC</strong> - Loose Mechanical Components</Option>
-	// 							<Option value="NBD"><strong className='text-blue-600'>NBD</strong> - Not Built to Docuemntation</Option>
-	// 							<Option value="IC"> <strong className='text-blue-600'>IC </strong> - Incorrect Components</Option>
-	// 							<Option value="MC"> <strong className='text-blue-600'>MC </strong> - Missing Component</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>DM </strong> - Damaged Component</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>UAR</strong> - Unauthorised Redlines</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>LLO</strong> - Lower Level Observations Not Cleared</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>WMS</strong> - Workmanship</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>D  </strong> - Design Deficiency</Option>
-	// 							<Option value="">   <strong className='text-blue-600'>O  </strong> - other</Option>								
-	// 						</Select> 
-	// 					}
-							
-	// 					</div>   
-    
-	// 				</div>
-
-	// 				<div id="Column-3" className='flex flex-col space-y-4'>
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="project">
-	// 							Project
-	// 						</label>
-	// 						<input onChange={(e) => setProject(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-						
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="project">
-	// 							Syspro Code
-	// 						</label>
-	// 						<input onChange={(e) => setSysproCode(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Qty To Be Reworked
-	// 						</label>
-	// 						<input onChange={(e) => setQtyToBeReworked(e.target.value)} id="inspection-number" placeholder="Qty To Be Reworked" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Remarks 
-	// 						</label>
-	// 						<input onChange={(e) => setRemarks(e.target.value)} id="inspection-number" placeholder="Remarks" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-
-	// 				</div>
-
-	// 				<div id="Column-4" className='flex flex-col space-y-4'>
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="project">
-	// 							Part Number
-	// 						</label>
-	// 						<input onChange={(e) => setPartNumber(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-						
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="project">
-	// 							Manuf items
-	// 						</label>
-	// 						<input onChange={(e) => setManufItems(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="code">
-	// 							Qty Rejected
-	// 						</label>
-	// 						<input onChange={(e) => setQtyRejected(e.target.value)} id="inspection-number" placeholder="Qty Rejected" className="shadow appearance-noe border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="number" />
-	// 					</div>
-
-	// 					<div>
-	// 						<label className="block text-black text-lg mb-1" htmlFor="project">
-	// 							Serial Numbers
-	// 						</label>
-	// 						<input onChange={(e) => setSerialNumbers(e.target.value)} id="project" placeholder="Project" className="shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
-	// 					</div>
-						
-	// 				</div>
-
-	// 			</div>
-					
-
-
-
-	// 		</section>
-
-	// 		<section className='flex justify-center space-x-9'>
-	// 			<Link href={"/"} className='px-4 py-2 bg-red-600 text-white rounded'>Cancel</Link>
-	// 			<button onClick={insertInspectionRecord} className='px-4 py-2 bg-blue-600 text-white rounded'>Complete</button>
-	// 		</section>
-	// 	</main>
-    // )
 }

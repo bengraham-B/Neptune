@@ -5,33 +5,44 @@ import { useSelector } from 'react-redux';
 
 export default function Excel({ status }) {
 
-	alert(status)
+	// alert(status)
 
-  function SaveToExcel(data) {
-    try {
-      const test_excel = "TEST";
-      // Create a new workbook
-      const workbook = XLSX.utils.book_new();
+	function SaveToExcel(data) {
+		try {
+			const test_excel = "TEST";
+			// Create a new workbook
+			const workbook = XLSX.utils.book_new();
 
-      // Convert the array of objects to a worksheet
-      const worksheet = XLSX.utils.json_to_sheet(data);
+			// Convert the array of objects to a worksheet
+			const worksheet = XLSX.utils.json_to_sheet(data);
 
-      // Append the worksheet to the workbook
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+			// Append the worksheet to the workbook
+			XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
-      // Generate a file and trigger the download
-      XLSX.writeFile(workbook, `${test_excel}.xlsx`);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+			// Generate a file and trigger the download
+			XLSX.writeFile(workbook, `${test_excel}.xlsx`);
+			} catch (error) {
+			console.log(error.message);
+		}
+	}
 
   // Getting records from Redux
-  const recordsRedux = useSelector((state) => state.inspection.value);
+	const recordsRedux = useSelector((state) => state.inspection.value);
+	let filterRecords
+
+	if (status === "All"){
+		filterRecords = recordsRedux
+	} 
+
+	else {
+		filterRecords = recordsRedux.filter((record) => record.status === status)
+
+
+	}
 
   return (
     <button 
-      onClick={() => SaveToExcel(recordsRedux)} 
+      onClick={() => SaveToExcel(filterRecords)} 
       className="flex py-2 px-4 rounded text-white bg-green-600"
     >
       Download Excel

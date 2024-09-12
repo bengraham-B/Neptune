@@ -75,9 +75,11 @@ export default function Home() {
 
                             <div className='space-y-4'>
                                 <Select color="blue" label="Status" onChange={(val) => setModalStatus(val)} className='text-black'>
-                                    <Option value='DB'> <strong className='text-blue-600'>New</strong></Option>
-                                    <Option value='DB'> <strong className='text-blue-600'>In Progress</strong></Option>					
-                                    <Option value='DB'> <strong className='text-blue-600'>Completed</strong></Option>					
+                                    <Option value='All'> <strong className='text-blue-600'>All</strong></Option>
+                                    <Option value='New'> <strong className='text-blue-600'>New</strong></Option>
+                                    <Option value='In-progress'> <strong className='text-blue-600'>In Progress</strong></Option>					
+                                    <Option value='Problem'> <strong className='text-blue-600'>Problem</strong></Option>					
+                                    <Option value='Completed'> <strong className='text-blue-600'>Completed</strong></Option>					
                                 </Select> 
                                 <Excel status={modalStatus}/>
                             </div>
@@ -88,12 +90,13 @@ export default function Home() {
                         variant="text"
                         color="red"
                         onClick={handleOpen}
-                        className="mr-1"
+                        className="mr-1 hidden"
+                        
                     >
-                        <span>Cancel</span>
+                        <span>Dont press</span>
                     </Button>
                     <Button variant="gradient" color="green" onClick={handleOpen}>
-                        <span>Confirm</span>
+                        <span>Close</span>
                     </Button>
                     </DialogFooter>
                 </Dialog>
