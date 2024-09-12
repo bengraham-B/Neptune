@@ -9,7 +9,7 @@ export default function Excel({ status }) {
 
 	function SaveToExcel(data) {
 		try {
-			const test_excel = "TEST";
+			
 			// Create a new workbook
 			const workbook = XLSX.utils.book_new();
 
@@ -20,7 +20,7 @@ export default function Excel({ status }) {
 			XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
 			// Generate a file and trigger the download
-			XLSX.writeFile(workbook, `${test_excel}.xlsx`);
+			XLSX.writeFile(workbook, `${status}.xlsx`);
 			} catch (error) {
 			console.log(error.message);
 		}
