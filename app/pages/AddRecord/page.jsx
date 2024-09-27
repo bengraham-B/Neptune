@@ -1,11 +1,11 @@
 "use client"
 import Link from 'next/link'
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 
 
 
-export default function page() {
+export default function Page() {
 	// Initilising the router on the clinet side - use next/navigation on client compoents/pages
 	const router = useRouter();
 

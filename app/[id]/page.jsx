@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 // Material Tailwind
 import { Select, Option, input } from "@material-tailwind/react";
 
-export default function page({params}) {
+export default function Page({params}) {
     // Initilising the router on the clinet side
 	const router = useRouter();
 
