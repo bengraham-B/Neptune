@@ -33,9 +33,9 @@ export default  function Header() {
 
   return (
     <main className='flex bg-blue-700 text-white py-5 px-2 '>
-        <section className='w-1/3'>
-            <Link href="/">
-                <h1 className='text-3xl'>Home</h1>
+        <section className='w-1/3 '>
+            <Link href="/" className='flex align-middle'>
+                <h1 className='text-4xl'>Home</h1>
             </Link>
         </section>
 
@@ -45,8 +45,12 @@ export default  function Header() {
 
         <section className='flex justify-end w-1/3 space-x-4 pr-4 align-middle'>
 
-            <div className='text-lg flex align-middle py-2'>
+            <div className='text-lg flex align-middle'>
                 {/* <p className='text-lg flex align-middle text-center'>{session?.user?.name}</p> */}
+            </div>
+
+            <div className='flex justify-center align-middle'>
+                <Link href="/pages/Admin" className='text-lg border border-white rounded py-2 px-4'>Admin</Link>
             </div>
 
             <div className='text-lg flex align-middle'>
