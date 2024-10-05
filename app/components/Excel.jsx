@@ -28,6 +28,7 @@ export default function Excel({ status }) {
 
   // Getting records from Redux
 	const recordsRedux = useSelector((state) => state.inspection.value);
+	
 	let filterRecords
 
 	if (status === "All"){

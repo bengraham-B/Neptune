@@ -16,13 +16,9 @@ module.exports = {
 	},
 	plugins: [
 	  require('daisyui'),
-	  require("rippleui"),
 	],
 	daisyui: {
 	  themes: ["light"], // Use only the light theme
-	},
-	rippleui: {
-	  removeThemes: ["dark"], // Remove dark theme from RippleUI
-	},
+	}
   };
   

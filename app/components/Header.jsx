@@ -32,7 +32,7 @@ export default  function Header() {
     const auth = useSelector((state) => state.auth.value)
 
   return (
-    <main className='flex bg-blue-700 text-white py-5 px-2 '>
+    <main className='flex bg-blue-700 text-white py-5 px-2'>
         <section className='w-1/3 '>
             <Link href="/" className='flex align-middle'>
                 <h1 className='text-4xl'>Home</h1>

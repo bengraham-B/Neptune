@@ -15,6 +15,7 @@ export default function Table() {
 
     //~ Getting records from REDUX
     const recordsRedux = useSelector((state) => state.inspection.value)
+    console.log(recordsRedux)
 
     const openInspectionRecord = async (id) => {
         router.push(`/${id}`)
