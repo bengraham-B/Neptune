@@ -109,56 +109,50 @@ export default function Page({params}) {
     const postgresDate = `${year}-${month}-${day}`; // Output example: "2024-08-21"
 
     const handleEdit = async () => {
+		handleDefectCode()
         let sumOfQty = Number(qtyRejected) + Number(qtyWIP) + Number(acceptedQty) + Number(qtyToBeReworked)
         let totalQtyEditSymbit = Number(totalQty)
 
-        if(totalQtyEditSymbit === sumOfQty){
-            const response = await fetch('/api/updateInspectionRecord/', {
-                method: "PUT",
-                body: JSON.stringify({
-                    id: params.id,
-                    status: status,
+		const response = await fetch('/api/updateInspectionRecord/', {
+			method: "PUT",
+			body: JSON.stringify({
+				id: params.id,
+				status: status,
 
-                    GRV: GRV ? GRV : postgresDate,
-		            date_inspected: dateInspected ? dateInspected : postgresDate,
-                    inspection_number: inspectionNumber,
-                    project: projectCode,
+				GRV: GRV ? GRV : postgresDate,
+				date_inspected: dateInspected ? dateInspected : postgresDate,
+				inspection_number: inspectionNumber,
+				project: projectCode,
 
-                    part_number: partNumber,
-                    serial_number: serialNumbers,
-                    purchase_order_number: purchaseOrderNumber,
-                    production_job_number: productionJobNumber,
+				part_number: partNumber,
+				serial_number: serialNumbers,
+				purchase_order_number: purchaseOrderNumber,
+				production_job_number: productionJobNumber,
 
-                    department_company: departmentCompany,
-                    syspro_code: sysproCode, 
-                    manuf_items: manufItems, 
-                    inspection_phase: inspectionPhase,
+				department_company: departmentCompany,
+				syspro_code: sysproCode, 
+				manuf_items: manufItems, 
+				inspection_phase: inspectionPhase,
 
-                    total_qty: totalQty,
-                    qty_accepted: acceptedQty,
-                    qty_wip: qtyWIP,
-                    qty_rejected: qtyRejected,
-                    qty_to_be_reworked: qtyToBeReworked,
-                    
-                    defect_codes: defectCode,
-                    remarks: remarks
-                })
-            })
-    
-            if(response.ok){
-                const data = await response.json()
-                router.push('/')
-            } 
-    
-            else {
-                alert("Error Updating Inspection Record")
-            }
-        }
+				total_qty: totalQty,
+				qty_accepted: acceptedQty,
+				qty_wip: qtyWIP,
+				qty_rejected: qtyRejected,
+				qty_to_be_reworked: qtyToBeReworked,
+				
+				defect_codes: defectCode,
+				remarks: remarks
+			})
+		})
 
-        else {
-            alert("Qty Fields are Not Equal")
-        }
+		if(response.ok){
+			const data = await response.json()
+			router.push('/')
+		} 
 
+		else {
+			alert("Error Updating Inspection Record")
+		}
     } 
 
     useEffect(() => {
@@ -166,17 +160,17 @@ export default function Page({params}) {
         console.log("------>", status)
     }, [])
 
-    const handleDefectCode = (event) => {
-        
+    const handleDefectCode = () => {
         if (qtyRejected === 0 || qtyToBeReworked === 0){
-            alert("Qty Reqjected or Qty to be reworked must have a value")
+            // alert("Qty Reqjected or Qty to be reworked must have a value")
             setShowDefectCodes(false)
+			setDefectCode(null)
             
         }
         
         else {
             setShowDefectCodes(true)
-            setDefectCode(event.target.value); // Save the selected value to state
+            // setDefectCode(event.target.value); // Save the selected value to state
         }
 	}
 
@@ -186,7 +180,11 @@ export default function Page({params}) {
 
     useEffect(() => {
         setShowDefectCodes(!showDefectCodes)
-    }, [qtyRejected])
+		handleDefectCode()
+    }, [qtyRejected, qtyToBeReworked])
+
+
+	
     
 
 
@@ -323,7 +321,7 @@ export default function Page({params}) {
 							<label className="block text-black text-lg mb-1" htmlFor="code">
 								Total Qty  
 							</label>
-							<input onChange={(e) => setTotalQty(e.target.value)} id="inspection-number" value={totalQty}  className={`shadow appearance-none border  border-blue-600  bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline`}  type="number" />
+							<input onChange={(e) => setTotalQty(e.target.value)} id="inspection-number" value={Number(qtyRejected) + Number(qtyWIP) + Number(acceptedQty) + Number(qtyToBeReworked)}  className={`shadow appearance-none border  border-blue-600  bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline`}  type="number" />
 						</div>
 
 						<div>
@@ -363,7 +361,7 @@ export default function Page({params}) {
 
 								<select
 									value={defectCode}
-									onChange={handleDefectCode}
+									onChange={(e) => setDefectCode(e.target.value)}
 									className=" w-[100%] flex justify-start h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded pl-2 pr-16 py-2 appearance-none cursor-pointer">
                                         <option value={null}>- No Defect</option>
 										<option value="DP">DP - Datapack</option>
