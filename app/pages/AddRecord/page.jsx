@@ -2,7 +2,7 @@
 
 //^ =============================================================================================
 
-//^ 			This is the Edit Page for indivdual Inspection Records 
+//^ 			This is the Page To Create/Add Inspection Records 
 
 //^ =============================================================================================
 
@@ -10,104 +10,48 @@ import React, {useEffect, useState} from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-// Material Tailwind
-import { Select, Option, input } from "@material-tailwind/react";
-
 export default function Page({params}) {
-    // Initilising the router on the clinet side
-	const router = useRouter();
+    const router = useRouter(); // Initilising the router on the client side
 
-    const id = params.id
-
-    // Status Variable
-    const [statusVariableState, setStatusVariableState] = useState()
-
-    // Above Table
+    //? Above Table
     const [inspectionCode, setInspectionCode] = useState() //
     const [status, setStatus] = useState() //
     
-    // Row 1
+    //? Row 1
     const [GRV, setGRV] = useState() //
 	const [dateInspected, setDateInspected] = useState() //
     const [inspectionNumber, setInspectionNumber] = useState() // -  //This is the number assigned to the member of the QA tea,
 	const [projectCode, setProjectCode] = useState() //
     
-    // Row 2
+    //? Row 2
 	const [partNumber, setPartNumber] = useState() //
 	const [serialNumbers, setSerialNumbers] = useState() //
 	const [purchaseOrderNumber, setPurchaseOrderNumber] = useState() //
 	const [productionJobNumber, setProductionJobNumber] = useState() //
 
-    // Row 3
+    //? Row 3
 	const [departmentCompany, setDepartmentCompany] = useState() //
 	const [sysproCode, setSysproCode] = useState() //
 	const [manufItems, setManufItems] = useState() //
     const [inspectionPhase, setInspectionPhase] = useState() //
     
-    // Row 4
+    //? Row 4
 	const [totalQty, setTotalQty] = useState(0) //
 	const [acceptedQty, setAcceptedQty] = useState(0) //
 	const [qtyToBeReworked, setQtyToBeReworked] = useState(0) //
 	const [qtyRejected, setQtyRejected] = useState(0) //
 	const [qtyWIP, setQtyWIP] = useState(0)
     
-    // Row 5
+    //? Row 5
 	const [defectCode, setDefectCode] = useState()
 	const [remarks, setRemarks] = useState()
-    
 
-    const [sumOfQty, setSumOfQty] = useState()
 
     const [showDefectCodes, setShowDefectCodes] = useState()
   
-    
 
 
-    // This will fetch a single inspection record with the specified ID.
-    const fetchInspectionReport = async () => {
-        const response = await fetch('/api/getSingleInspectionRecord/', {
-            method: "POST",
-            body: JSON.stringify({id: id}),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-        if(response.ok){
-            const data = await response.json()
-
-            setInspectionCode(data.record.inspection_code) //^ Identification for inspection Record (ID)
-            setStatus(data.record.status)
-
-            setGRV(data.record.grv)
-            setDateInspected(data.record.date_inspected)
-            setInspectionNumber(data.record.inspection_number) //TODO <---------------------------------------------------------------- Add this to DB
-            setProjectCode(data.record.project)
-        
-            setPartNumber(data.record.part_number)
-            setSerialNumbers(data.record.serial_number)
-            setPurchaseOrderNumber(data.record.purchase_order_number)
-            setProductionJobNumber(data.record.production_job_number)
-
-            setDepartmentCompany(data.record.department_company)
-            setSysproCode(data.record.syspro_code)
-            setManufItems(data.record.manuf_items)
-            setInspectionPhase(data.record.inspection_phase)
-
-            setTotalQty(Number(data.record.total_qty))
-            setStatus(data.record.status)
-            setAcceptedQty(Number(data.record.qty_accepted))
-            setQtyRejected(Number(data.record.qty_rejected))
-            setQtyWIP(Number(data.record.qty_wip))
-            setQtyToBeReworked(Number(data.record.qty_to_be_reworked))
-
-            setDefectCode(data.record.defect_codes)
-            setRemarks(data.record.remarks)
-        }
-            
-    }
-
-    // Get current date 
+    //* Get current date 
 	const currentDate = new Date();
 	const year = currentDate.getFullYear();
 	const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
@@ -115,16 +59,15 @@ export default function Page({params}) {
 
     const postgresDate = `${year}-${month}-${day}`; // Output example: "2024-08-21"
 
-    const handleEdit = async () => {
+    //* Function to Create an Inspection Record
+    const handleCreateReacord = async () => {
 		handleDefectCode()
-        let sumOfQty = Number(qtyRejected) + Number(qtyWIP) + Number(acceptedQty) + Number(qtyToBeReworked)
-        let totalQtyEditSymbit = Number(totalQty)
 
-		const response = await fetch('/api/updateInspectionRecord/', {
-			method: "PUT",
+		const response = await fetch('/api/insertInspectionRecord/', {
+			method: "POST",
 			body: JSON.stringify({
 				id: params.id,
-				status: status,
+				status: "New",
 
 				GRV: GRV,
 				date_inspected: dateInspected,
@@ -162,22 +105,14 @@ export default function Page({params}) {
 		}
     } 
 
-    useEffect(() => {
-        fetchInspectionReport()
-        console.log("------>", status)
-    }, [])
-
     const handleDefectCode = () => {
         if (qtyRejected === 0 || qtyToBeReworked === 0){
-            // alert("Qty Reqjected or Qty to be reworked must have a value")
             setShowDefectCodes(false)
 			setDefectCode(null)
-            
         }
         
         else {
             setShowDefectCodes(true)
-            // setDefectCode(event.target.value); // Save the selected value to state
         }
 	}
 
@@ -198,33 +133,11 @@ export default function Page({params}) {
     
     return (
         <main className='flex flex-col space-y-4 py-2'>
-        	<section className='flex justify-center  text-3xl text-black font- font-liht'>EDIT INSPECTION RECORD</section>
-
-		<data value=""></data>
+        	<section className='flex justify-center  text-3xl text-black pt-4 pb-2'>ADD INSPECTION RECORD</section>
 
 			<section className='flex flex-col justify-center mx-20'>
 				<div className='py-1 text-black text-lg flex flex-row justify-between'>
-					<h1  className='flex flex-row'><strong className='text-2xl'>Inspection Number</strong>: <p className='text-blue-600 pl-2 text-2xl'>{inspectionCode}</p></h1>
-
-					<div  className='flex flex-row align-middle justify-between gap-2 px-2 '>
-                        <div className='text-2xl flex align-midle justify-center text-center py-2'>
-
-                        <h1>Status</h1> 
-                        </div>
-                        
-
-                        <select
-                            value={status}
-                            onChange={handleStatus}
-                            className="flex align-midle w-full h-full bg-transparent placeholder:text-black text-black text-md border border-blue-600 rounded pl-2 pr-6 py-2 appearance-none cursor-pointer">
-                                <option value="New">New</option>
-                                <option value="In-progress">In-progress</option>
-                                <option value="Problem">Problem</option>
-                                <option value="Completed">Completed</option>
-                        </select>
-                        
-                       
-                    </div>
+					<h1  className='flex flex-row align-bottom'><strong className='text-2xl'>Inspection Number  Will be generated once record is submitted.</strong></h1>
 				</div>
 
 				<div className='p-6  justify-between border border-blue-600 rounded mt-1'>
@@ -370,7 +283,7 @@ export default function Page({params}) {
 									value={defectCode}
 									onChange={(e) => setDefectCode(e.target.value)}
 									className=" w-[100%] flex justify-start h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded pl-2 pr-16 py-2 appearance-none cursor-pointer">
-                                        <option value={null}>- No Defect</option>
+                                        <option value="">- No Defect</option>
 										<option value="DP">DP - Datapack</option>
 										<option value="NPO">NPO - No Purchase Order</option>
 										<option value="BH">BH - Build History Incomplete & No Documenation from Suppliers</option>
@@ -390,14 +303,8 @@ export default function Page({params}) {
                               
 							</div>
 						</div>
-						
 					</div>
-                    {/* {
-                        qtyRejected === 0  ? 
-                    
-				<div></div>:
-
-                    } */}
+                  
 
 					<div>
 						<div className='w-[100%]'>
@@ -406,19 +313,14 @@ export default function Page({params}) {
 							</label>
 							<textarea onChange={(e) => setRemarks(e.target.value)} id="inspection-number" value={remarks} placeholder={serialNumbers} className="h-24 shadow appearance-none border border-blue-600 bg-inherit rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"  type="text" />
 						</div>
-
-						
 					</div>
 				</div>
 					
-
-
-
 			</section>
 
 			<section className='flex justify-center space-x-9'>
-				<Link href={"/"} className='px-4 py-2 bg-red-600 text-white rounded'>Cancel</Link>
-				<button onClick={handleEdit} className='px-4 py-2 bg-blue-600 text-white rounded'>Edit</button>
+				<Link href={"/"} className='btn flex justify-center px-4 py-2 hover:bg-red-500 bg-red-600 w-24 text-white rounded'>Cancel</Link>
+				<button onClick={handleCreateReacord} className='btn hover:bg-green-500 px-4 py-2 w-24 bg-green-600 text-white rounded'>Add</button>
 			</section>
     	</main>
     )

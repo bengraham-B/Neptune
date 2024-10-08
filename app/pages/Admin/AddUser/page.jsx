@@ -75,8 +75,6 @@ export default function page() {
                     </section>
                 </section>
             </div>
-
-
         </main>
   )
 }

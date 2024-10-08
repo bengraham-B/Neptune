@@ -370,7 +370,7 @@ export default function Page({params}) {
 									value={defectCode}
 									onChange={(e) => setDefectCode(e.target.value)}
 									className=" w-[100%] flex justify-start h-full bg-transparent placeholder:text-slate-400 text-black text-md border border-blue-600 rounded pl-2 pr-16 py-2 appearance-none cursor-pointer">
-                                        <option value={null}>- No Defect</option>
+                                        <option value="">- No Defect</option>
 										<option value="DP">DP - Datapack</option>
 										<option value="NPO">NPO - No Purchase Order</option>
 										<option value="BH">BH - Build History Incomplete & No Documenation from Suppliers</option>
@@ -418,7 +418,7 @@ export default function Page({params}) {
 
 			<section className='flex justify-center space-x-9'>
 				<Link href={"/"} className='px-4 py-2 bg-red-600 text-white rounded'>Cancel</Link>
-				<button onClick={handleEdit} className='px-4 py-2 bg-blue-600 text-white rounded'>Edit</button>
+				<button onClick={handleEdit} className='px-4 py-2 bg-blue-600 text-white rounded'>Save</button>
 			</section>
     	</main>
     )
