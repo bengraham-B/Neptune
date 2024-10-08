@@ -50,7 +50,7 @@ export default  function Header() {
             </div>
 
             <div className='flex justify-center align-middle'>
-                <Link href="/pages/Admin" className='text-lg border border-white rounded py-2 px-4'>Admin</Link>
+                <Link href="/pages/Admin" className='flex justify-center text-lg border border-white rounded py-2 px-4 hover:bg-white hover:text-blue-600 w-28'>Admin</Link>
             </div>
 
             <div className='text-lg flex align-middle'>

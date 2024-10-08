@@ -13,7 +13,7 @@ export default function Table() {
     const [filterStatus, setFilterStatus] = useState()
     const [showAll, setShowAll] = useState()
 
-    //~ Getting records from REDUX
+    //* Getting records from REDUX
     const recordsRedux = useSelector((state) => state.inspection.value)
     console.log(recordsRedux)
 
@@ -24,7 +24,7 @@ export default function Table() {
     const formatDate = (dateString) => {
         try {
             const date = new Date(dateString.replace(' ', 'T'))
-            return date.toLocaleDateString('en-GB') // Format as 'DD/MM/YYYY'
+            return date.toLocaleDateString('en-GB') //* Format as 'DD/MM/YYYY'
         } catch (error) {
             return null
         }
@@ -48,7 +48,7 @@ export default function Table() {
     <section className='overflow-x-auto'>
 
         <div className='flex justify-row my-2 mx-2 space-x-2'>
-            <label htmlFor="" className='py-2'>Filter By Status</label>
+            <label htmlFor="" className='py-2 text-lg'>Filter By Status</label>
             <select
                 value={filterStatus}
                 onChange={handleFilterStatus}

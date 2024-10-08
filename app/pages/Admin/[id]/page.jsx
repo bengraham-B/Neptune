@@ -126,7 +126,7 @@ export default function Page({params}) {
                     </div>
                 
                     <section className='flex justify-around'>
-                        <button className="btn w-24 btn-info text-white" onClick={() => handleEdit(userID)}>Edit</button>
+                        <button className="btn w-24 btn-info text-white" onClick={() => handleEdit(userID)}>Save</button>
                         <button className="btn w-24 btn-error text-white" onClick={handleDelete}>Delete</button>
                     </section>
 

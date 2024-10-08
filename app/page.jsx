@@ -55,11 +55,12 @@ export default function Home() {
     return (
         <main>
 			<section className='flex  my-4 justify-between px-8'>
-                <Link href={"/pages/AddRecord/"} className='py-2 px-4 rounded-md font-2xl bg-blue-600 text-white'>Add Inspection Record</Link>
-                <Link href={"/pages/Excel"} className='felx py-2 px-4 rounded bg-green-600 text-white'>Excel</Link>
+                <Link href={"/pages/AddRecord/"} className='btn py-2 px-4 rounded-md font-2xl hover:bg-blue-500 bg-blue-600 text-white'>Add Inspection Record</Link>
+                <Link href={"/pages/Excel"} className='btn felx py-2 px-4 rounded hover:bg-green-500 bg-green-600 text-white w-24'>Excel</Link>
             </section>
 			
 			<section className='flex p-1 justify-center w-full'>
+                {/* This is found in the Component folder */}
 				<Table/>
 			</section>
 
