@@ -55,52 +55,16 @@ export default function Home() {
     return (
         <main>
 			<section className='flex  my-4 justify-between px-8'>
-                <Link href={"/pages/AddRecord/"} className='py-2 px-4 rounded-md font-2xl bg-blue-600 text-white'>Add Inspection Record</Link>
-                <button onClick={handleOpen} className='felx py-2 px-4 rounded bg-green-600 text-white'>Excel</button>
+                <Link href={"/pages/AddRecord/"} className='btn py-2 px-4 rounded-md font-2xl hover:bg-blue-500 bg-blue-600 text-white'>Add Inspection Record</Link>
+                <Link href={"/pages/Excel"} className='btn felx py-2 px-4 rounded hover:bg-green-500 bg-green-600 text-white w-24'>Excel</Link>
             </section>
 			
 			<section className='flex p-1 justify-center w-full'>
+                {/* This is found in the Component folder */}
 				<Table/>
 			</section>
 
-            <section>
-                {/* <Button onClick={handleOpen} variant="gradient">
-                    Open Modal
-                </Button> */}
-
-                <Dialog open={open} handler={handleOpen}>
-                    <DialogHeader>Download Inspection Records</DialogHeader>
-                        <DialogBody>
-                        <div></div>
-
-                            <div className='space-y-4'>
-                                <Select color="blue" label="Status" onChange={(val) => setModalStatus(val)} className='text-black'>
-                                    <Option value='All'> <strong className='text-blue-600'>All</strong></Option>
-                                    <Option value='New'> <strong className='text-blue-600'>New</strong></Option>
-                                    <Option value='In-progress'> <strong className='text-blue-600'>In Progress</strong></Option>					
-                                    <Option value='Problem'> <strong className='text-blue-600'>Problem</strong></Option>					
-                                    <Option value='Completed'> <strong className='text-blue-600'>Completed</strong></Option>					
-                                </Select> 
-                                <Excel status={modalStatus}/>
-                            </div>
-
-                        </DialogBody>
-                    <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleOpen}
-                        className="mr-1 hidden"
-                        
-                    >
-                        <span>Dont press</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleOpen}>
-                        <span>Close</span>
-                    </Button>
-                    </DialogFooter>
-                </Dialog>
-            </section>
+            
 
             {/* This section is to test redux */}
             {/* <section>
